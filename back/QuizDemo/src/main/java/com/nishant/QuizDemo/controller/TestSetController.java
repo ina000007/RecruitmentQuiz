@@ -31,15 +31,15 @@ public class TestSetController {
 	@PostMapping("/addcollege")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> addCollege(@Valid @RequestBody AddCollegeRequest addCollegeRequest) {
-		System.out.println("Adding Catagory");
+		System.out.println("Adding college.....>>"+addCollegeRequest);
 			if (collegeDetailRepository.existsByCollegeId(addCollegeRequest.getCollegeId())) {
 	            return new ResponseEntity(new ApiResponse(false, "College already exists"),HttpStatus.BAD_REQUEST);
 			} else {
 				// Adding new catagory
-				CollegeDetail CollegeDetail = new CollegeDetail(addCollegeRequest.getCollegeId(),addCollegeRequest.getClgState(),addCollegeRequest.getClgState());
+				CollegeDetail CollegeDetail = new CollegeDetail(addCollegeRequest.getCollegeId(),addCollegeRequest.getClgState(),addCollegeRequest.getClgUniversity());
 				collegeDetailRepository.save(CollegeDetail);
-				System.out.println("question-> "+CollegeDetail.toString());
-		        return ResponseEntity.ok(new ApiResponse(true, "Collage added successfully"));
+				System.out.println("college detail-> "+CollegeDetail.toString());
+		        return ResponseEntity.ok(new ApiResponse(true, "College added successfully"));
 			}		
 	}
 }

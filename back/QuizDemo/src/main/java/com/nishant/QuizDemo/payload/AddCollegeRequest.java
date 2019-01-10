@@ -29,5 +29,10 @@ public class AddCollegeRequest {
 	public void setClgUniversity(String clgUniversity) {
 		this.clgUniversity = clgUniversity;
 	}
+	@Override
+	public String toString() {
+		return "AddCollegeRequest [collegeId=" + collegeId + ", clgState=" + clgState + ", clgUniversity="
+				+ clgUniversity + "]";
+	}
     
 }

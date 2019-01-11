@@ -36,7 +36,9 @@ public class TestSetController {
 	            return new ResponseEntity(new ApiResponse(false, "College already exists"),HttpStatus.BAD_REQUEST);
 			} else {
 				// Adding new catagory
-				CollegeDetail CollegeDetail = new CollegeDetail(addCollegeRequest.getCollegeId(),addCollegeRequest.getClgState(),addCollegeRequest.getClgUniversity());
+				Long clgRgstCd =collegeDetailRepository.count()+1;
+				CollegeDetail CollegeDetail = new CollegeDetail(addCollegeRequest.getCollegeId(),
+						addCollegeRequest.getClgState(),addCollegeRequest.getClgUniversity(),clgRgstCd);
 				collegeDetailRepository.save(CollegeDetail);
 				System.out.println("college detail-> "+CollegeDetail.toString());
 		        return ResponseEntity.ok(new ApiResponse(true, "College added successfully"));

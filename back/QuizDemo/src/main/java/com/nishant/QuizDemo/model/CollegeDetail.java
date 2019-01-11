@@ -22,17 +22,21 @@ public class CollegeDetail {
 	
     private  String clgState;
     private  String clgUniversity;
+    private Long clgRgstCd;
     
 	public CollegeDetail() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public CollegeDetail(CollegeId collegeId, String clgState, String clgUniversity) {
+
+	public CollegeDetail(CollegeId collegeId, String clgState, String clgUniversity, Long clgRgstCd) {
 		super();
 		this.collegeId = collegeId;
 		this.clgState = clgState;
 		this.clgUniversity = clgUniversity;
+		this.clgRgstCd = clgRgstCd;
 	}
+
 	public CollegeId getCollegeId() {
 		return collegeId;
 	}
@@ -51,9 +55,19 @@ public class CollegeDetail {
 	public void setClgUniversity(String clgUniversity) {
 		this.clgUniversity = clgUniversity;
 	}
+
+	public Long getClgRgstCd() {
+		return clgRgstCd;
+	}
+
+	public void setClgRgstCd(Long clgRgstCd) {
+		this.clgRgstCd = clgRgstCd;
+	}
+
 	@Override
 	public String toString() {
 		return "CollegeDetail [collegeId=" + collegeId + ", clgState=" + clgState + ", clgUniversity=" + clgUniversity
-				+ "]";
+				+ ", clgRgstCd=" + clgRgstCd + "]";
 	}
+
 }

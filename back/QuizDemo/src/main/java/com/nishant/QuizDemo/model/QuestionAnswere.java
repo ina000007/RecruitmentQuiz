@@ -20,6 +20,10 @@ import java.util.List;
     })
 public class QuestionAnswere {
 	
+	public QuestionAnswere() {
+		
+	}
+	
     @Override
 	public String toString() {
 		return "QuestionAnswere [id=" + id + ", questionDesc=" + questionDesc + ", option1=" + option1 + ", option2="

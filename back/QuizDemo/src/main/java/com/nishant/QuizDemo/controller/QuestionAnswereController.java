@@ -22,7 +22,9 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/questionanswere")
@@ -84,4 +86,19 @@ public class QuestionAnswereController {
 		        return ResponseEntity.ok(new ApiResponse(true, "Catagory added successfully"));
 			}		
 	}
+	
+	@PostMapping("/quescnt")
+	@PreAuthorize("hasRole('ADMIN')")
+	public Map quesCnt() {
+		String quesCatType;
+		String quesCatName;
+		Map<String,String> quesCnt=new HashMap<>();
+		for(QuestionCatagory questionCatagory:questionCatagoryRepository.findAll()) {
+			quesCatType = questionCatagory.getId()+"";
+			quesCatName = questionCatagory.getQuestionCatagory();
+			quesCnt.put(quesCatName, quesCatType);
+		}
+		
+		return quesCnt;
+	}	
 }

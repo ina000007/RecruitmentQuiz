@@ -17,6 +17,9 @@ public interface QuestionAnswereRepository extends JpaRepository<QuestionAnswere
 
     Optional<QuestionAnswere> findByquestionDesc(String questionDesc);
     
+    List<QuestionAnswere> findByType(String type);
+    List<QuestionAnswere> findAllByType(String type);
+    
     Boolean existsByQuestionDesc(String questionDesc);
 
 //    Page<QuestionAnswere> findByCreatedBy(Long userId, Pageable pageable);

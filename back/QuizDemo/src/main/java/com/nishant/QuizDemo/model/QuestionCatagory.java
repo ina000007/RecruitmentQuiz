@@ -22,12 +22,14 @@ public class QuestionCatagory {
 
     @NotBlank
     private String questionCatagory;
-
+    
 	public QuestionCatagory( @NotBlank String questionCatagory) {
 		super();
 		this.questionCatagory = questionCatagory;
 	}
-
+	public QuestionCatagory() {
+		
+	}
 	@Override
 	public String toString() {
 		return "QuestionCatagory [id=" + id + ", questionCatagory=" + questionCatagory + "]";

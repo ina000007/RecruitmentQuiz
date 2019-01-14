@@ -11,6 +11,7 @@ import com.nishant.QuizDemo.model.User;
 public interface CollegeDetailRepository extends JpaRepository<CollegeDetail, CollegeId> {
 	
 	Optional<CollegeDetail> findByCollegeId(CollegeId collegeId);
+	Optional<CollegeDetail> findByClgRgstCd(Long clgRgstCd);
 
     Boolean existsByCollegeId(CollegeId collegeId);
 

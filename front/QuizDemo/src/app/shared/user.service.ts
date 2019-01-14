@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import{ HttpClient } from '@angular/common/http';
+import{ HttpClient, HttpHeaders } from '@angular/common/http';
 import{ Response } from '@angular/http';
 import{ Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -18,7 +18,16 @@ export class UserService {
       "password":user.Password,
       "email":user.Email,
       "name":user.Name
-    } 
-    return this.http.post(this.rootUrl+'/api/auth/signup',body  );
+    }
+    var reqHeader= new HttpHeaders({'No-Auth':'True'}); 
+    return this.http.post(this.rootUrl+'/api/auth/signup',body,{headers:reqHeader}  );
+   }
+   userAuthentication(usernameOrEmail,password){
+     const body={
+      "usernameOrEmail":usernameOrEmail,
+      "password":password
+    };
+    var reqHeader= new HttpHeaders({'No-Auth':'True'}); 
+    return this.http.post(this.rootUrl+'/api/auth/signin',body,{headers:reqHeader}  );
    }
 }

@@ -1,7 +1,7 @@
-import { User } from './../shared/user.model';
+import { User } from '../../shared/user.model';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { UserService } from '../shared/user.service';
+import { UserService } from '../../shared/user.service';
 import { ToastrService} from 'ngx-toastr';
 
 @Component({

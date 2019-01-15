@@ -29,6 +29,7 @@ import com.nishant.QuizDemo.security.JwtTokenProvider;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Collections;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -54,15 +55,21 @@ public class AuthController {
     	System.out.println("request body for login "+loginRequest);
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsernameOrEmail(),
-                        loginRequest.getPassword()
+                        loginRequest.getUsernameOrEmail().trim(),
+                        loginRequest.getPassword().trim()
                 )
         );
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         String jwt = tokenProvider.generateToken(authentication);
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+        User user;
+        Role role=null;
+        Optional data = userRepository.findByUsernameOrEmail(loginRequest.getUsernameOrEmail(), loginRequest.getUsernameOrEmail());
+        if(data.isPresent()) {
+        	user = (User) data.get(); 
+        	role = (Role) user.getRoles().toArray()[0];
+        	System.out.println("Role role=> "+role);
+        }
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt,role));
     }
 
     @PostMapping("/signup")
@@ -84,8 +91,8 @@ public class AuthController {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Role userRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-                .orElseThrow(() -> new AppException("User Role not set."));
+        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)  
+                .orElseThrow(() -> new AppException("User Role not set."));  //change ROLE_USER to ROLE_ADMIN to register user or admin 
 
         user.setRoles(Collections.singleton(userRole));
 

@@ -30,4 +30,12 @@ export class UserService {
     var reqHeader= new HttpHeaders({'No-Auth':'True'}); 
     return this.http.post(this.rootUrl+'/api/auth/signin',body,{headers:reqHeader}  );
    }
+
+   roleMatch(allowedRole):boolean{
+     var isMatched=false;
+     if(allowedRole==localStorage.getItem("userRole")){
+       isMatched=true;
+     }
+     return isMatched;
+   }
 }

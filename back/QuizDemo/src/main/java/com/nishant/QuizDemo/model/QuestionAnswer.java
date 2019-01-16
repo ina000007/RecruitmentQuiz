@@ -13,21 +13,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "QuestionAnswere",uniqueConstraints = {
+@Table(name = "QuestionAnswer",uniqueConstraints = {
         @UniqueConstraint(columnNames = {
                 "questionDesc"
             })
     })
-public class QuestionAnswere {
+public class QuestionAnswer {
 	
-	public QuestionAnswere() {
+	public QuestionAnswer() {
 		
 	}
 	
     @Override
 	public String toString() {
-		return "QuestionAnswere [id=" + id + ", questionDesc=" + questionDesc + ", option1=" + option1 + ", option2="
-				+ option2 + ", option3=" + option3 + ", option4=" + option4 + ", answere=" + answere + ", mark=" + mark
+		return "QuestionAnswer [id=" + id + ", questionDesc=" + questionDesc + ", option1=" + option1 + ", option2="
+				+ option2 + ", option3=" + option3 + ", option4=" + option4 + ", answer=" + answer + ", mark=" + mark
 				+ ", type=" + type + ", date=" + date + "]";
 	}
 
@@ -51,7 +51,7 @@ public class QuestionAnswere {
     private String option4;
     
     @NotBlank
-    private String answere;
+    private String answer;
     
     @NotBlank
     private String mark;    
@@ -64,8 +64,8 @@ public class QuestionAnswere {
 
     
     
-	public QuestionAnswere( @NotBlank String questionDesc, @NotBlank String option1, @NotBlank String option2,
-			@NotBlank String option3, @NotBlank String option4, @NotBlank String answere, @NotBlank String mark,
+	public QuestionAnswer( @NotBlank String questionDesc, @NotBlank String option1, @NotBlank String option2,
+			@NotBlank String option3, @NotBlank String option4, @NotBlank String answer, @NotBlank String mark,
 			@NotBlank String type, @NotBlank String date) {
 		super();
 		this.questionDesc = questionDesc;
@@ -73,7 +73,7 @@ public class QuestionAnswere {
 		this.option2 = option2;
 		this.option3 = option3;
 		this.option4 = option4;
-		this.answere = answere;
+		this.answer = answer;
 		this.mark = mark;
 		this.type = type;
 		this.date = date;
@@ -127,12 +127,12 @@ public class QuestionAnswere {
 		this.option4 = option4;
 	}
 
-	public String getAnswere() {
-		return answere;
+	public String getAnswer() {
+		return answer;
 	}
 
-	public void setAnswere(String answere) {
-		this.answere = answere;
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 
 	public String getMark() {

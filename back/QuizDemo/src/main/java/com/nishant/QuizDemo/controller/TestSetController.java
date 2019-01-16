@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nishant.QuizDemo.model.CollegeDetail;
-import com.nishant.QuizDemo.model.QuestionCatagory;
-import com.nishant.QuizDemo.payload.AddCatagoryRequest;
+import com.nishant.QuizDemo.model.QuestionCategory;
+import com.nishant.QuizDemo.payload.AddCategoryRequest;
 import com.nishant.QuizDemo.payload.AddCollegeRequest;
 import com.nishant.QuizDemo.payload.ApiResponse;
 import com.nishant.QuizDemo.repository.CollegeDetailRepository;
@@ -35,7 +35,7 @@ public class TestSetController {
 			if (collegeDetailRepository.existsByCollegeId(addCollegeRequest.getCollegeId())) {
 	            return new ResponseEntity(new ApiResponse(false, "College already exists"),HttpStatus.BAD_REQUEST);
 			} else {
-				// Adding new catagory
+				// Adding new category
 				Long clgRgstCd =collegeDetailRepository.count()+1;
 				CollegeDetail CollegeDetail = new CollegeDetail(addCollegeRequest.getCollegeId(),
 						addCollegeRequest.getClgState(),addCollegeRequest.getClgUniversity(),clgRgstCd);

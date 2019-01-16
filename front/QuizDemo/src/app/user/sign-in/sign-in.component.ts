@@ -15,6 +15,8 @@ export class SignInComponent implements OnInit {
   ngOnInit() {
   }
   onSubmit(usernameOrEmail,password){
+    usernameOrEmail = String(usernameOrEmail).trim();
+    password = String(password).trim();
     this.userService.userAuthentication(usernameOrEmail,password).subscribe((data: any)=>{
         localStorage.setItem("userToken",data.accessToken);
         localStorage.setItem("userRole",data.role.name);

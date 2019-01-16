@@ -20,7 +20,7 @@ public class QuesAnsUploadRequest {
     private String option4;
     
     @NotBlank
-    private String answere;
+    private String answer;
     
     @NotBlank
     private Long mark;    
@@ -29,7 +29,7 @@ public class QuesAnsUploadRequest {
     private String type;
 
 	public QuesAnsUploadRequest(@NotBlank String questionDesc, @NotBlank String option1, @NotBlank String option2,
-			@NotBlank String option3, @NotBlank String option4, @NotBlank String answere, @NotBlank Long mark,
+			@NotBlank String option3, @NotBlank String option4, @NotBlank String answer, @NotBlank Long mark,
 			@NotBlank String type) {
 		super();
 		this.questionDesc = questionDesc;
@@ -37,7 +37,7 @@ public class QuesAnsUploadRequest {
 		this.option2 = option2;
 		this.option3 = option3;
 		this.option4 = option4;
-		this.answere = answere;
+		this.answer = answer;
 		this.mark = mark;
 		this.type = type;
 	}
@@ -85,12 +85,12 @@ public class QuesAnsUploadRequest {
 		this.option4 = option4;
 	}
 
-	public String getAnswere() {
-		return answere;
+	public String getAnswer() {
+		return answer;
 	}
 
-	public void setAnswere(String answere) {
-		this.answere = answere;
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 
 	public Long getMark() {

@@ -6,23 +6,23 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.nishant.QuizDemo.model.QuestionAnswere;
+import com.nishant.QuizDemo.model.QuestionAnswer;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface QuestionAnswereRepository extends JpaRepository<QuestionAnswere, Long> {
+public interface QuestionAnswerRepository extends JpaRepository<QuestionAnswer, Long> {
 	
-    Optional<QuestionAnswere> findById(Long questionAnswereId);
+    Optional<QuestionAnswer> findById(Long questionAnswerId);
 
-    Optional<QuestionAnswere> findByquestionDesc(String questionDesc);
+    Optional<QuestionAnswer> findByquestionDesc(String questionDesc);
     
-    List<QuestionAnswere> findByType(String type);
-    List<QuestionAnswere> findAllByType(String type);
+    List<QuestionAnswer> findByType(String type);
+    List<QuestionAnswer> findAllByType(String type);
     
     Boolean existsByQuestionDesc(String questionDesc);
 
-//    Page<QuestionAnswere> findByCreatedBy(Long userId, Pageable pageable);
+//    Page<QuestionAnswer> findByCreatedBy(Long userId, Pageable pageable);
 //
 //    long countByCreatedBy(Long userId);
 //

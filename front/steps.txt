@@ -1,0 +1,3 @@
+ng new QuizDemo
+ng g c sign-up
+ng g s user

@@ -9,30 +9,30 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "QuestionCatagory",uniqueConstraints = {
+@Table(name = "QuestionCategory",uniqueConstraints = {
         @UniqueConstraint(columnNames = {
-                "questionCatagory"
+                "questionCategory"
             })
     })
-public class QuestionCatagory {
+public class QuestionCategory {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    private String questionCatagory;
+    private String questionCategory;
     
-	public QuestionCatagory( @NotBlank String questionCatagory) {
+	public QuestionCategory( @NotBlank String questionCategory) {
 		super();
-		this.questionCatagory = questionCatagory;
+		this.questionCategory = questionCategory;
 	}
-	public QuestionCatagory() {
+	public QuestionCategory() {
 		
 	}
 	@Override
 	public String toString() {
-		return "QuestionCatagory [id=" + id + ", questionCatagory=" + questionCatagory + "]";
+		return "QuestionCategory [id=" + id + ", questionCategory=" + questionCategory + "]";
 	}
 
 	public Long getId() {
@@ -43,11 +43,11 @@ public class QuestionCatagory {
 		this.id = id;
 	}
 
-	public String getQuestionCatagory() {
-		return questionCatagory;
+	public String getQuestionCategory() {
+		return questionCategory;
 	}
 
-	public void setQuestionCatagory(String questionCatagory) {
-		this.questionCatagory = questionCatagory;
+	public void setQuestionCategory(String questionCategory) {
+		this.questionCategory = questionCategory;
 	}
 }

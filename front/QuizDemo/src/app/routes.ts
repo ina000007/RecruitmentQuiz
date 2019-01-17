@@ -6,12 +6,14 @@ import { HomeComponent } from './home/home.component';
 import {Routes} from '@angular/router';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { UserComponent } from './user/user.component';
+import { UploadQuestionComponent } from './upload-question/upload-question.component';
 
 
 export const appRoutes: Routes=[
     {path:'home', component:HomeComponent, canActivate:[AuthGuard]},
     {path:'forbidden', component:ForbiddenComponent, canActivate:[AuthGuard]},
     {path:'adminPanel', component:AdminPanelComponent, canActivate:[AuthGuard], data: {role:['ROLE_ADMIN']}},
+    {path:'uploadQuestion', component:UploadQuestionComponent, canActivate:[AuthGuard], data: {role:['ROLE_ADMIN']}},
     {
     path:'signup', component:UserComponent,
     children:[{path:'',component:SignUpComponent}]

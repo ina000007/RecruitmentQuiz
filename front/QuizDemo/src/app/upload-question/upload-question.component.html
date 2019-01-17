@@ -1,0 +1,19 @@
+<app-nav-bar></app-nav-bar> 
+<div class="container">
+  <div class="row">
+    <div class="col s8 offset-s2">   
+        <div class="card-panel teal "> 
+        <label class="white-text ">Pick Question Category</label>
+        <select class="browser-default ">
+          <option value="" disabled selected>Choose Category</option>
+          <option [value]="cat.id" *ngFor="let cat of categories">{{cat.questionCategory}}</option>
+        </select>
+        <div class="white-text center">OR</div>        
+        <div class="input-field" style="width: 95%;">
+            <input  type="text" #addCat ngModel name="addCat" placeholder="Add Category"> 
+            <a  class="waves-effect waves-light btn " (click)='saveCat(addCat.value)'><i class="material-icons right">add_circle</i>Add</a>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>   

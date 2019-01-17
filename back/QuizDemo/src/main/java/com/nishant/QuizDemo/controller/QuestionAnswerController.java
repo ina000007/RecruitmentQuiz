@@ -101,4 +101,12 @@ public class QuestionAnswerController {
 		
 		return quesCnt;
 	}	
+	@PostMapping("/getcategory")
+	@PreAuthorize("hasRole('ADMIN')")
+	public List getCategory() {
+		String quesCatType;
+		String quesCatName;
+		List<QuestionCategory> questionCategoryLst = questionCategoryRepository.findAll();
+		return questionCategoryLst;
+	}	
 }

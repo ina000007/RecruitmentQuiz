@@ -21,6 +21,8 @@
     import {RouterModule} from '@angular/router';
   import { AdminPanelComponent } from './admin-panel/admin-panel.component';
   import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { UploadQuestionComponent } from './upload-question/upload-question.component';
 
     @NgModule({
       declarations: [
@@ -30,7 +32,9 @@
         SignInComponent,
         HomeComponent,
         AdminPanelComponent,
-        ForbiddenComponent
+        ForbiddenComponent,
+        NavBarComponent,
+        UploadQuestionComponent
       ],
       imports: [
         BrowserModule,

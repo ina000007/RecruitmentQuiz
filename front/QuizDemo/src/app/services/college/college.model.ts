@@ -1,7 +1,7 @@
+import { CollegeId } from "./college-id.model";
+
 export class College {
-    clgName:String;
-    clgLocation:String;
-    clgCity:String;
+    collegeId:CollegeId;
     clgState:String;
     clgUniversity:String;
 

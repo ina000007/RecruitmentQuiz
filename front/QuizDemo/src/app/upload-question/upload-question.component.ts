@@ -58,8 +58,8 @@ export class UploadQuestionComponent implements OnInit {
     else{
       let fileReader = new FileReader();
       fileReader.onload = (e) => {
-        console.log(fileReader.result);
-        console.log(this.csvToJson(fileReader.result));
+        console.log("here the file \n"+fileReader.result);
+        console.log("after convert\n"+this.csvToJson(fileReader.result));
         
         this.quesAnsService.addQues(this.csvToJson(fileReader.result))
         .subscribe((data:any)=>{
@@ -90,6 +90,7 @@ export class UploadQuestionComponent implements OnInit {
   }
   
   csvToJson(csv){
+    csv = csv.trim();
     csv = csv.replace(/\r/g, "");
     var lines = csv.split("\n");
     var result = [];
@@ -100,7 +101,7 @@ export class UploadQuestionComponent implements OnInit {
         if(lines[i].split(",").length==6)
           lines[i]=lines[i]+",1";
         lines[i]=lines[i]+","+this.selectedLevel;  
-        var currentline = lines[i].split(",");
+        var currentline = lines[i].trim().split(",");
         for (var j = 0; j < headers.length; j++) {
             obj[headers[j]] = currentline[j];
         }

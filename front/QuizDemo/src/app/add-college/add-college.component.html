@@ -7,7 +7,7 @@
                   <form class="col s12 white" #clgRegistrationForm="ngForm" (ngSubmit)="OnSubmit(clgRegistrationForm)">
                       <div class="row">
                         <div class="input-field col s6">
-                          <input id="clgName"  class="validate" type="text"  ngModel name="clgName" #clgName="ngModel" [(ngModel)]="college.clgName" required>
+                          <input id="clgName"  class="validate" type="text"  ngModel name="clgName" #clgName="ngModel" [(ngModel)]="collegeId.clgName" required>
                           <label for ="clgName" data-error="Required field!">College Name</label>
                         </div>
                         <div class="input-field col s6">
@@ -16,11 +16,11 @@
                           </div>  
                         <div class="input-field col s6">
                             <label for ="clgLocation">Location/Address</label>
-                            <input id="clgLocation" class="validate" type="text" name="clgLocation" #clgLocation="ngModel" [(ngModel)]="college.clgLocation" required>
+                            <input id="clgLocation" class="validate" type="text" name="clgLocation" #clgLocation="ngModel" [(ngModel)]="collegeId.clgLocation" required>
                           </div> 
                         <div class="input-field col s6">
                           <label for="clgCity" data-error="here" >City</label>
-                          <input id="clgCity" class="validate" type="text" name="clgCity" #clgCity="ngModel" [(ngModel)]="college.clgCity" required>
+                          <input id="clgCity" class="validate" type="text" name="clgCity" #clgCity="ngModel" [(ngModel)]="collegeId.clgCity" required>
                         </div>
                         <div class="input-field col s6">
                           <label for ="clgState">State</label>

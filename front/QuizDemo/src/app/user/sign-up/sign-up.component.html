@@ -2,23 +2,23 @@
             <form class="col s12 white" #userRegistrationForm="ngForm" (ngSubmit)="OnSubmit(userRegistrationForm)">
               <div class="row">
                 <div class="input-field col s6">
-                    <label data-error="Required field!">UserName</label>
-                  <input  class="validate" type="text"  ngModel name="Username" #Username="ngModel" [(ngModel)]="user.Username" required>
+                    <label for="Username" data-error="Required field!">UserName</label>
+                  <input id="Username" class="validate" type="text"  ngModel name="Username" #Username="ngModel" [(ngModel)]="user.Username" required>
                   
                 </div>
                 <div class="input-field col s6">
-                  <label data-error="here" >Password</label>
-                  <input class="validate" type="text" name="Password" #Password="ngModel" [(ngModel)]="user.Password" required minlength="4">
+                  <label for="Password" data-error="here" >Password</label>
+                  <input id="Password" class="validate" type="text" name="Password" #Password="ngModel" [(ngModel)]="user.Password" required minlength="4">
                   
                 </div>
                 <div class="input-field col s6">
-                    <label>Email</label>
-                  <input class="validate" type="text" name="Email" #Email="ngModel" [(ngModel)]="user.Email" required>
+                    <label for="Email">Email</label>
+                  <input id="Email" class="validate" type="text" name="Email" #Email="ngModel" [(ngModel)]="user.Email" required>
                   
                 </div> 
                 <div class="input-field col s6">
-                    <label>Name</label>
-                  <input class="validate" type="text" name="Name" #Name="ngModel" [(ngModel)]="user.Name" required>
+                    <label for="Name">Name</label>
+                  <input id="Name" class="validate" type="text" name="Name" #Name="ngModel" [(ngModel)]="user.Name" required>
                   
                 </div>    
               </div>

@@ -1,0 +1,40 @@
+<app-nav-bar></app-nav-bar> 
+<div class="container">
+  <div class="row">
+    <div class="col s10 offset-s1">   
+      <div class="card-panel teal "> 
+      <label class="white-text"><h5>Question Category</h5></label>  
+        <select class="browser-default " [(ngModel)]="selectedLevel" (change)="getQuesByCat(selectedLevel)">
+          <option [ngValue]="cat.id" *ngFor="let cat of categories">{{cat.questionCategory}}</option>
+        </select>
+      </div>
+      <ul class="collapsible">
+          <li  *ngFor="let ques of quesLst" id={{ques.id}} #quesDiv >
+            <div class="collapsible-header">
+              {{ques.questionDesc}}
+              <span class="badge"><i class="material-icons right">expand_more</i></span>
+            </div>
+                <div class="collapsible-body">
+                    <label>Question</label>
+                    <input  type="text" name="ques" #desc value="{{ques.questionDesc}}">
+                    <label>Option1</label>
+                    <input  type="text" name="opt1" #opt1 value="{{ques.option1}}">
+                    <label>Option2</label>
+                    <input  type="text" name="opt2" #opt2 value="{{ques.option2}}">
+                    <label>Option3</label>
+                    <input  type="text" name="opt3" #opt3 value="{{ques.option3}}">
+                    <label>Option4</label>
+                    <input  type="text" name="opt4" #opt4 value="{{ques.option4}}">
+                    <label>Answer</label>
+                    <input  type="text" name="ans" #ans value="{{ques.answer}}">
+                    <label>Marks</label>
+                    <input  type="text" name="mark" #mark value="{{ques.mark}}">                    
+          <a  class="waves-effect waves-light btn " (click)='updateQues(ques,desc.value,opt1.value,opt2.value,opt3.value,opt4.value,ans.value,mark.value)'><i class="material-icons right">add_circle</i>Update</a>
+          <a  class="waves-effect waves-light btn right" (click)='deleteQues(ques)' ><i class="material-icons right"></i>Delete</a>
+            </div>
+          </li>
+        </ul>
+    </div>
+  </div>
+</div>  
+

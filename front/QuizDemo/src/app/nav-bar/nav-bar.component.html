@@ -2,7 +2,7 @@
     <div class="nav-wrapper">
       <a routerLink="/home" class="brand-logo center">
         <i class="material-icons">cloud</i>QuizDemo</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <ul id="nav-mobile" class="right ">
           <li *ngIf="userService.roleMatch(['ROLE_ADMIN'])">
               <a routerLink="/adminPanel">Admin Panel</a>
             </li>

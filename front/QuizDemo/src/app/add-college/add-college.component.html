@@ -1,0 +1,46 @@
+  <app-nav-bar></app-nav-bar> 
+    <div class="container">
+        <div class="row">
+          <div class="col s8 offset-s2">
+            <div class="card grey lighten-2">
+              <div class="card-tabs">
+                  <form class="col s12 white" #clgRegistrationForm="ngForm" (ngSubmit)="OnSubmit(clgRegistrationForm)">
+                      <div class="row">
+                        <div class="input-field col s6">
+                          <input id="clgName"  class="validate" type="text"  ngModel name="clgName" #clgName="ngModel" [(ngModel)]="college.clgName" required>
+                          <label for ="clgName" data-error="Required field!">College Name</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <label for ="clgUniversity" >University</label>
+                            <input id="clgUniversity" class="validate" type="text" name="clgUniversity" #clgUniversity="ngModel" [(ngModel)]="college.clgUniversity" required>
+                          </div>  
+                        <div class="input-field col s6">
+                            <label for ="clgLocation">Location/Address</label>
+                            <input id="clgLocation" class="validate" type="text" name="clgLocation" #clgLocation="ngModel" [(ngModel)]="college.clgLocation" required>
+                          </div> 
+                        <div class="input-field col s6">
+                          <label for="clgCity" data-error="here" >City</label>
+                          <input id="clgCity" class="validate" type="text" name="clgCity" #clgCity="ngModel" [(ngModel)]="college.clgCity" required>
+                        </div>
+                        <div class="input-field col s6">
+                          <label for ="clgState">State</label>
+                          <input id="clgState" class="validate" type="text" name="clgState" #clgState="ngModel" [(ngModel)]="college.clgState" required>
+                        </div>      
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <button [disabled]='!clgRegistrationForm.valid' class="btn-large btn-submit" type="submit">submit</button>
+                        </div>
+                      </div> 
+                    </form>
+                  
+              </div>
+              <div class="card-content white">
+                <div class="row">
+                  <router-outlet></router-outlet>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

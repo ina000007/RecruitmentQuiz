@@ -13,58 +13,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "QuestionAnswer",uniqueConstraints = {
-        @UniqueConstraint(columnNames = {
-                "questionDesc"
-            })
-    })
+@Table(name = "QuestionAnswer", uniqueConstraints = { @UniqueConstraint(columnNames = { "questionDesc" }) })
 public class QuestionAnswer {
-	
+
 	public QuestionAnswer() {
-		
-	}
-	
-    @Override
-	public String toString() {
-		return "QuestionAnswer [id=" + id + ", questionDesc=" + questionDesc + ", option1=" + option1 + ", option2="
-				+ option2 + ", option3=" + option3 + ", option4=" + option4 + ", answer=" + answer + ", mark=" + mark
-				+ ", type=" + type + ", date=" + date + "]";
 	}
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @NotBlank
-    private String questionDesc;
+	@NotBlank
+	private String questionDesc;
 
-    @NotBlank
-    private String option1;
-    
-    @NotBlank
-    private String option2;
-    
-    @NotBlank
-    private String option3;
-    
-    @NotBlank
-    private String option4;
-    
-    @NotBlank
-    private String answer;
-    
-    @NotBlank
-    private String mark;    
-    
-    @NotBlank
-    private String type;
-    
-    @NotBlank
-    private String date;
+	@NotBlank
+	private String option1;
 
-    
-    
-	public QuestionAnswer( @NotBlank String questionDesc, @NotBlank String option1, @NotBlank String option2,
+	@NotBlank
+	private String option2;
+
+	@NotBlank
+	private String option3;
+
+	@NotBlank
+	private String option4;
+
+	@NotBlank
+	private String answer;
+
+	@NotBlank
+	private String mark;
+
+	@NotBlank
+	private String type;
+
+	@NotBlank
+	private String date;
+
+	public QuestionAnswer(@NotBlank String questionDesc, @NotBlank String option1, @NotBlank String option2,
 			@NotBlank String option3, @NotBlank String option4, @NotBlank String answer, @NotBlank String mark,
 			@NotBlank String type, @NotBlank String date) {
 		super();
@@ -158,5 +144,11 @@ public class QuestionAnswer {
 	public void setDate(String date) {
 		this.date = date;
 	}
-    
+
+	@Override
+	public String toString() {
+		return "QuestionAnswer [id=" + id + ", questionDesc=" + questionDesc + ", option1=" + option1 + ", option2="
+				+ option2 + ", option3=" + option3 + ", option4=" + option4 + ", answer=" + answer + ", mark=" + mark
+				+ ", type=" + type + ", date=" + date + "]";
+	}
 }

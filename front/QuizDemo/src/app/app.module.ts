@@ -23,6 +23,8 @@
   import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { UploadQuestionComponent } from './upload-question/upload-question.component';
+import { UpdateQuestionComponent } from './update-question/update-question.component';
+import { AddCollegeComponent } from './add-college/add-college.component';
 
     @NgModule({
       declarations: [
@@ -34,7 +36,9 @@ import { UploadQuestionComponent } from './upload-question/upload-question.compo
         AdminPanelComponent,
         ForbiddenComponent,
         NavBarComponent,
-        UploadQuestionComponent
+        UploadQuestionComponent,
+        UpdateQuestionComponent,
+        AddCollegeComponent
       ],
       imports: [
         BrowserModule,

@@ -2,18 +2,50 @@
 <div class="container">
   <div class="row">
     <div class="col s8 offset-s2">   
-        <div class="card-panel teal "> 
-        <label class="white-text ">Pick Question Category</label>
-        <select class="browser-default ">
-          <option value="" disabled selected>Choose Category</option>
-          <option [value]="cat.id" *ngFor="let cat of categories">{{cat.questionCategory}}</option>
+      <div class="card-panel teal "> 
+      <label class="white-text"><h5>Pick Question Category</h5></label>  
+        <select class="browser-default " [(ngModel)]="selectedLevel" >
+          <option [ngValue]="a" selected=true disabled>Choose Category</option>
+          <option [ngValue]="cat.id" *ngFor="let cat of categories">{{cat.questionCategory}}</option>
         </select>
+        <br>
         <div class="white-text center">OR</div>        
-        <div class="input-field" style="width: 95%;">
-            <input  type="text" #addCat ngModel name="addCat" placeholder="Add Category"> 
-            <a  class="waves-effect waves-light btn " (click)='saveCat(addCat.value)'><i class="material-icons right">add_circle</i>Add</a>
-          </div>
+        <div class="input-field " style="width: 95%;">
+          <input class="white-text" type="text" #addCat ngModel name="addCat" placeholder="Add Category"> 
+          <a  class="waves-effect waves-light btn " (click)='saveCat(addCat.value)'><i class="material-icons right">add_circle</i>Add</a>
         </div>
+      </div>
+
+      <div class="card-panel teal "> 
+          <label class="white-text"><h5>Select .CSV file</h5></label>  
+          <div class = "file-field input-field">
+              <div class = "btn">
+                 <span>Browse</span>
+                 <i class="material-icons right">insert_drive_file</i>
+                 <input type = "file" (change)="fileChanged($event)"/>
+              </div>
+              
+              <div class = "file-path-wrapper">
+                 <input class = "file-path validate white-text" type = "text" 
+                    placeholder = "Upload file" />
+              </div>
+           </div>
+        </div>
+
+        <div class="card-panel teal "> 
+          <div class="center">
+            <a data-target="modal1" class="waves-effect waves-light btn btn modal-trigger " (click)='uploadDocument()'><i class="material-icons right">file_upload</i>Upload File</a>
+          </div>
+          </div>
     </div>
   </div>
-</div>   
+</div>  
+<div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div> 

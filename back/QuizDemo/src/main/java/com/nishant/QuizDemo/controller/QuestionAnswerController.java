@@ -19,12 +19,15 @@ import com.nishant.QuizDemo.repository.QuestionAnswerRepository;
 import com.nishant.QuizDemo.repository.QuestionCategoryRepository;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/questionanswer")
@@ -47,7 +50,7 @@ public class QuestionAnswerController {
 		for (QuesAnsUploadRequest quesAns : quesAnsUploadRequest) {
 			
 			if (questionAnswerRepository.existsByQuestionDesc(quesAns.getQuestionDesc())) {
-				quesAnsResponse.add(new QuesAnsUploadResponse(false, "Question already exist", "Not generated"));
+				quesAnsResponse.add(new QuesAnsUploadResponse(false,quesAns.getQuestionDesc(), "Question already exist"));
 			} else {
 				// Adding new question
 				QuestionAnswer questionAnswer = new QuestionAnswer(quesAns.getQuestionDesc(), quesAns.getOption1(),
@@ -77,7 +80,7 @@ public class QuestionAnswerController {
 	public ResponseEntity<?> addCategory(@Valid @RequestBody AddCategoryRequest addCategoryRequest) {
 		System.out.println("Adding Category");
 			if (questionCategoryRepository.existsByQuestionCategory(addCategoryRequest.getQuestionCategory().toLowerCase())) {
-	            return new ResponseEntity(new ApiResponse(false, "Category already exists"),HttpStatus.BAD_REQUEST);
+	            return new ResponseEntity(new ApiResponse(false, "Category already exists"),HttpStatus.ALREADY_REPORTED);
 			} else {
 				// Adding new category
 				QuestionCategory questionCategory = new QuestionCategory(addCategoryRequest.getQuestionCategory().toLowerCase());
@@ -108,5 +111,35 @@ public class QuestionAnswerController {
 		String quesCatName;
 		List<QuestionCategory> questionCategoryLst = questionCategoryRepository.findAll();
 		return questionCategoryLst;
+	}	
+	
+	@RequestMapping(value="/question/cat/{typeId}", method=RequestMethod.GET)
+	@PreAuthorize("hasRole('ADMIN')")
+	public List getQuestionByCat(@PathVariable("typeId") String typeId) {
+		List<QuestionAnswer> quesAnsLst;
+		quesAnsLst = (typeId.equals("0"))? questionAnswerRepository.findAll(): questionAnswerRepository.findAllByType(typeId);
+		return quesAnsLst;
+	}	
+	
+	@RequestMapping(value="/question", method=RequestMethod.PUT)
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity updateQuestion(@Valid @RequestBody QuestionAnswer updQuesAns) {
+		System.out.println("here nishant "+updQuesAns);
+		questionAnswerRepository.save(updQuesAns);
+		return  ResponseEntity.ok(new ApiResponse(true, "Question updated successfully"));
+	}	
+	
+	@RequestMapping(value="/question/{id}", method=RequestMethod.DELETE)
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity deleteQuestion( @PathVariable String id ) {
+		System.out.println("delete ");
+		Optional data = questionAnswerRepository.findById(Long.parseLong(id));
+		if(data.isPresent()) {
+			QuestionAnswer ques = (QuestionAnswer) data.get();
+			questionAnswerRepository.delete(ques);
+			return  ResponseEntity.ok(new ApiResponse(true, "Question Delete successfully"));
+		}
+		
+		return  ResponseEntity.ok(new ApiResponse(false, "Question not deleted"));
 	}	
 }

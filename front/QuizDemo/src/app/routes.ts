@@ -1,3 +1,4 @@
+import { CreateTestComponent } from './create-test/create-test.component';
 import { AddCollegeComponent } from './add-college/add-college.component';
 import { UpdateQuestionComponent } from './update-question/update-question.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
@@ -18,6 +19,7 @@ export const appRoutes: Routes=[
     {path:'uploadQuestion', component:UploadQuestionComponent, canActivate:[AuthGuard], data: {role:['ROLE_ADMIN']}},
     {path:'updateQuestion', component: UpdateQuestionComponent, canActivate:[AuthGuard], data: {role:['ROLE_ADMIN']}},
     {path:'addCollege', component: AddCollegeComponent, canActivate:[AuthGuard], data: {role:['ROLE_ADMIN']}},
+    {path:'createTest', component: CreateTestComponent, canActivate:[AuthGuard], data: {role:['ROLE_ADMIN']}},
     {
     path:'signup', component:UserComponent,
     children:[{path:'',component:SignUpComponent}]

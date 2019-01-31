@@ -4,7 +4,7 @@
     import { BrowserModule } from '@angular/platform-browser';
     import { NgModule } from '@angular/core';
 
-    import{ FormsModule }from '@angular/forms';
+    import{ FormsModule, ReactiveFormsModule  }from '@angular/forms';
 
     import { AppComponent } from './app.component';
     import { SignUpComponent } from './user/sign-up/sign-up.component';
@@ -25,7 +25,9 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { UploadQuestionComponent } from './upload-question/upload-question.component';
 import { UpdateQuestionComponent } from './update-question/update-question.component';
 import { AddCollegeComponent } from './add-college/add-college.component';
-
+import { CreateTestComponent } from './create-test/create-test.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+ 
     @NgModule({
       declarations: [
         AppComponent,
@@ -38,7 +40,8 @@ import { AddCollegeComponent } from './add-college/add-college.component';
         NavBarComponent,
         UploadQuestionComponent,
         UpdateQuestionComponent,
-        AddCollegeComponent
+        AddCollegeComponent,
+        CreateTestComponent
       ],
       imports: [
         BrowserModule,
@@ -46,7 +49,9 @@ import { AddCollegeComponent } from './add-college/add-college.component';
         HttpClientModule,
         ToastrModule.forRoot(),
         BrowserAnimationsModule,
-        RouterModule.forRoot(appRoutes)
+        RouterModule.forRoot(appRoutes),
+        BsDatepickerModule.forRoot(),
+        ReactiveFormsModule 
       ],
       providers: [UserService,
       AuthGuard,

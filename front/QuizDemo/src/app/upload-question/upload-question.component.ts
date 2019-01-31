@@ -77,7 +77,7 @@ export class UploadQuestionComponent implements OnInit {
                 data[name.trim()] = XLSX.utils.sheet_to_json(wb.Sheets[name]);            
             });
     		for(let index=0;index<data[this.sheetName].length;index++){
-    			data[this.sheetName][index]['type']="1";  
+    			data[this.sheetName][index]['type']=this.selectedLevel;  
     		}
     		let temp =JSON.stringify( data[this.sheetName]);
     		var str = temp.replace(new RegExp(String.fromCharCode(160),"g"),"");

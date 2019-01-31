@@ -1,0 +1,65 @@
+<app-nav-bar></app-nav-bar>
+<div class="container">
+    <div class="row">
+        <div class="col s8 offset-s2">
+            <form #createTestSet="ngForm" (ngSubmit)="OnSubmit(createTestSet)">
+                <div class="card-panel teal black-text">
+                    <label class="black-text">
+                        <h5>Create Test</h5></label>
+                    <select class="browser-default " [(ngModel)]="selectedClg" name="clgSelector">
+                        <option [ngValue]="a" selected=true disabled>Select Colege</option>
+                        <option [ngValue]="clg.clgRgstCd" *ngFor="let clg of clsLst">{{clg.collegeId.clgName}} ,{{clg.collegeId.clgLocation}},{{clg.collegeId.clgCity}}
+                        </option>
+                    </select>
+                    <div class="input-field ">
+                        <input id="allocatedTime" type="text" class="validate" #allocatedTime ngModel name="allocatedTime" required>
+                        <label for="allocatedTime" class="black-text">Allocated Time(In mins)</label>
+                    </div>
+                    <div class="input-field ">
+                        <input id="driveDate" type="date" class="validate" #driveDate ngModel name="driveDate" required>
+                        <label for="driveDate" class="black-text">Drive Date</label>
+                    </div>
+                </div>
+                <div class="card-panel teal black-text">
+                    <label class="black-text">
+                        <h5>Question</h5></label>
+                    <div *ngIf='formGroup.controls.quesCat!=null'>
+                        <div *ngFor="let row of formGroup.controls.quesCat.controls;let i=index">
+
+                            <select id="cateSelector_{{i}}" class="browser-default " ngModel name="cateSelector_{{i}}">
+                                <option [ngValue]="a" selected=true disabled>Select Category</option>
+                                <option [ngValue]="cat.id" *ngFor="let cat of categories">{{cat.questionCategory}}</option>
+                            </select>
+                            <div class="input-field ">
+                                <input id="quesCnt_{{i}}" type="text" class="validate" #quesCnt ngModel name="quesCnt_{{i}}" required>
+                                <label for="quesCnt_{{i}}" class="black-text">Number of Questions</label>
+                            </div>
+                            <button class="btn waves-effect waves-light  " (click)="delQuesCat(i)">Remove</button>
+                        </div>
+                    </div>
+                    <div class="form-group right">
+                        <a  class="btn waves-effect waves-light " (click)="addMoreques()"><i class="material-icons right">add_circle</i>More</a>
+                        <!-- <button type="button" (click)="addMoreques()" [disabled]="formGroup.invalid">Add</button> -->
+                    </div>
+                </div>
+                <div class="card-panel teal black-text">
+                    <label class="black-text">
+                        <h5>Test Timings</h5></label>
+                    <div class="input-field">
+                        <input id="strtTime" type="time" #strtTime ngModel name="strtTime"  [required]="false">
+                        <label for="strtTime" class="black-text">Start Time (Optional)</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="endTime" type="time"  #endTime ngModel name="endTime" [required]="false">
+                        <label for="endTime" class="black-text">End Time (Optional)</label>
+                    </div>
+                </div>
+                <div class="card-panel teal black-text">
+                    <div class="input-field">
+                        <button [disabled]="!createTestSet.valid" class="btn-large btn-submit" type="submit">Create Test Set</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -43,11 +43,12 @@ public quesLst;
     this.quesAnsService.getQuesByCatId(id)
     .subscribe((data:any)=>{
       if(data.length>0){
-        console.log(data);
+        console.log("yes data "+data);
+        this.quesLst={};
         this.quesLst=data;
       }
       else{
-        console.log(data);
+        console.log("no data "+data);
       }
     });
   }

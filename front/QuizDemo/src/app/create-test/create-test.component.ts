@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { QuesAnsService } from './../services/quesAns/ques-ans.service';
 import { TestSetService } from './../services/testSet/test-set.service';
 import { QuesCategoryService } from './../services/quesCategory/ques-category.service';
@@ -19,10 +20,12 @@ export class CreateTestComponent implements OnInit {
   testSet: TestSet;
   selectedClg;
   clsLst: College;
+  createdTestId="";
   public quesCntLst: any[];
   public categories: any[];
   constructor(private testSetService:TestSetService,private clgService:CollgeService,
-     private _fb:FormBuilder,private QuesCategoryService:QuesCategoryService,private quesAnsService:QuesAnsService) {
+     private _fb:FormBuilder,private QuesCategoryService:QuesCategoryService,private quesAnsService:QuesAnsService,
+     private toastr: ToastrService) {
     this.getClgLst();
    }
 
@@ -51,12 +54,11 @@ delQuesCat(index:number){
     control.removeAt(index);
   }
   else{
-    alert("One cat is mandatory");
+    this.toastr.error("One cat is mandatory");
     return false;
   }
 }
   getClgLst(){
-    console.log("called getCollegeLst");
     this.clgService.getAllClg()
     .subscribe((data:any)=>{
       if(data.success==true){
@@ -94,11 +96,12 @@ delQuesCat(index:number){
       'endTime': form.value['endTime'],
       'reqQuesCatNCnt':this.map_to_obj(reqQuesCatNCnt)
     };
-    console.log(JSON.stringify(body));
     
     this.testSetService.createTestSet(body)
     .subscribe((data:any)=>{
       if(data.success==true){
+        this.toastr.success("Test Create Successfully, TestID: "+data.obj.id);
+        this.createdTestId=data.obj.id;
         console.log("success"+JSON.stringify(data));
       }
       else{
@@ -113,18 +116,15 @@ delQuesCat(index:number){
     this.quesAnsService.getQuestCnt()
     .subscribe((result:any)=>{
       this.quesCntLst = result;
-      console.log("here1 "+JSON.stringify(this.quesCntLst));
 
           for (let index = 0; index < cateData.length; index++) {
             cateData[index].count = this.quesCntLst[cateData[index].questionCategory];
            }
-    console.log("count "+JSON.stringify(this.categories));
     this.categories = cateData;
     });
   }
 
   getAllCategory(){
-		console.log("called quesCategoryService");
 		this.QuesCategoryService.getCategory()
 		.subscribe((data:any)=>{
 			if(data.length>0){

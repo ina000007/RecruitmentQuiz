@@ -27,6 +27,7 @@ import { UpdateQuestionComponent } from './update-question/update-question.compo
 import { AddCollegeComponent } from './add-college/add-college.component';
 import { CreateTestComponent } from './create-test/create-test.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { StartTestComponent } from './start-test/start-test.component';
  
     @NgModule({
       declarations: [
@@ -41,7 +42,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
         UploadQuestionComponent,
         UpdateQuestionComponent,
         AddCollegeComponent,
-        CreateTestComponent
+        CreateTestComponent,
+        StartTestComponent
       ],
       imports: [
         BrowserModule,

@@ -58,6 +58,9 @@
                     <div class="input-field">
                         <button [disabled]="!createTestSet.valid" class="btn-large btn-submit" type="submit">Create Test Set</button>
                     </div>
+                    <div *ngIf="createdTestId != ''">
+                            TestId={{createdTestId}}
+                    </div>
                 </div>
             </form>
         </div>

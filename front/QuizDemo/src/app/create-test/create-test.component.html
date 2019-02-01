@@ -28,7 +28,7 @@
 
                             <select id="cateSelector_{{i}}" class="browser-default " ngModel name="cateSelector_{{i}}">
                                 <option [ngValue]="a" selected=true disabled>Select Category</option>
-                                <option [ngValue]="cat.id" *ngFor="let cat of categories">{{cat.questionCategory}}</option>
+                                <option [ngValue]="cat.id" *ngFor="let cat of categories">{{cat.questionCategory}} (Available {{cat.count}} Questions)</option>
                             </select>
                             <div class="input-field ">
                                 <input id="quesCnt_{{i}}" type="text" class="validate" #quesCnt ngModel name="quesCnt_{{i}}" required>

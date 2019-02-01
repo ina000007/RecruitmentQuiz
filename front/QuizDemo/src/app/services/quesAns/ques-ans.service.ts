@@ -21,4 +21,7 @@ export class QuesAnsService {
   delQues(quesId){
     return this.http.delete(this.rootUrl+'/api/questionanswer/question/'+quesId);
   }
+  getQuestCnt(){
+    return this.http.post(this.rootUrl+'/api/questionanswer/quescnt',"");
+  }
 }

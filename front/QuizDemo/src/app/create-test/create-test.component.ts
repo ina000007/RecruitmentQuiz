@@ -1,3 +1,4 @@
+import { QuesAnsService } from './../services/quesAns/ques-ans.service';
 import { TestSetService } from './../services/testSet/test-set.service';
 import { QuesCategoryService } from './../services/quesCategory/ques-category.service';
 import { NgForm,FormBuilder,FormGroup,FormArray } from '@angular/forms';
@@ -18,8 +19,10 @@ export class CreateTestComponent implements OnInit {
   testSet: TestSet;
   selectedClg;
   clsLst: College;
+  public quesCntLst: any[];
   public categories: any[];
-  constructor(private testSetService:TestSetService,private clgService:CollgeService, private _fb:FormBuilder,private QuesCategoryService:QuesCategoryService) {
+  constructor(private testSetService:TestSetService,private clgService:CollgeService,
+     private _fb:FormBuilder,private QuesCategoryService:QuesCategoryService,private quesAnsService:QuesAnsService) {
     this.getClgLst();
    }
 
@@ -105,17 +108,35 @@ delQuesCat(index:number){
     });
   }
 
+  modifyCategoryObj(cateData){
+
+    this.quesAnsService.getQuestCnt()
+    .subscribe((result:any)=>{
+      this.quesCntLst = result;
+      console.log("here1 "+JSON.stringify(this.quesCntLst));
+
+          for (let index = 0; index < cateData.length; index++) {
+            cateData[index].count = this.quesCntLst[cateData[index].questionCategory];
+           }
+    console.log("count "+JSON.stringify(this.categories));
+    this.categories = cateData;
+    });
+  }
+
   getAllCategory(){
 		console.log("called quesCategoryService");
 		this.QuesCategoryService.getCategory()
 		.subscribe((data:any)=>{
 			if(data.length>0){
-				this.categories = data;
+        this.categories = data;
+        this.modifyCategoryObj(data);
 				// this.selectedLevel=this.categories[-1];
 			}
 			else{
 				this.categories=["No Category, Please add"];
 			}
-		});
+    });
+
+    
 	}
 }

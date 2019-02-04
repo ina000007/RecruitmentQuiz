@@ -1,3 +1,4 @@
+import { StartTestComponent } from './start-test/start-test.component';
 import { CreateTestComponent } from './create-test/create-test.component';
 import { AddCollegeComponent } from './add-college/add-college.component';
 import { UpdateQuestionComponent } from './update-question/update-question.component';
@@ -20,6 +21,8 @@ export const appRoutes: Routes=[
     {path:'updateQuestion', component: UpdateQuestionComponent, canActivate:[AuthGuard], data: {role:['ROLE_ADMIN']}},
     {path:'addCollege', component: AddCollegeComponent, canActivate:[AuthGuard], data: {role:['ROLE_ADMIN']}},
     {path:'createTest', component: CreateTestComponent, canActivate:[AuthGuard], data: {role:['ROLE_ADMIN']}},
+    {path:'startTest', component: StartTestComponent, canActivate:[AuthGuard], data: {role:['ROLE_ADMIN']}},
+
     {
     path:'signup', component:UserComponent,
     children:[{path:'',component:SignUpComponent}]

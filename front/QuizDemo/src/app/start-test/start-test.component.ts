@@ -1,3 +1,4 @@
+import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./start-test.component.css']
 })
 export class StartTestComponent implements OnInit {
-
+  testId;
+  strtTime;
+  endTime;
   constructor() { }
 
   ngOnInit() {
+  }
+  OnSubmit(form:NgForm){
+
   }
 
 }

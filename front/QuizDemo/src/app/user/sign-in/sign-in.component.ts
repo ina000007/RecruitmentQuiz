@@ -1,7 +1,7 @@
 import { UserService } from './../../shared/user.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,7 +10,12 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent implements OnInit {
   isLoginError: boolean = false;
-  constructor(private userService:UserService, private router:Router) { }
+   
+  constructor(private userService:UserService, private router:Router,private route: ActivatedRoute) { 
+
+    localStorage.clear();
+
+  }
 
   ngOnInit() {
   }
@@ -20,7 +25,10 @@ export class SignInComponent implements OnInit {
     this.userService.userAuthentication(usernameOrEmail,password).subscribe((data: any)=>{
         localStorage.setItem("userToken",data.accessToken);
         localStorage.setItem("userRole",data.role.name);
-        this.router.navigate(['/home']);
+        localStorage.setItem("isLoggedIn","true");
+        localStorage.setItem("emailId",usernameOrEmail);
+        let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+        this.router.navigate([returnUrl || '/home']);
     },
   (err : HttpErrorResponse)=>{
      this.isLoginError=true;

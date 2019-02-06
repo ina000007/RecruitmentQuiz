@@ -8,7 +8,7 @@
                         <h5>Create Test</h5></label>
                     <select class="browser-default " [(ngModel)]="selectedClg" name="clgSelector">
                         <option [ngValue]="a" selected=true disabled>Select Colege</option>
-                        <option [ngValue]="clg.clgRgstCd" *ngFor="let clg of clsLst">{{clg.collegeId.clgName}} ,{{clg.collegeId.clgLocation}},{{clg.collegeId.clgCity}}
+                        <option [ngValue]="clg" *ngFor="let clg of clsLst">{{clg.collegeId.clgName}} ,{{clg.collegeId.clgLocation}},{{clg.collegeId.clgCity}}
                         </option>
                     </select>
                     <div class="input-field ">

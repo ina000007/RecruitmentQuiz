@@ -87,7 +87,7 @@ delQuesCat(index:number){
       totalQues = totalQues+parseInt(quesCnt);
     }
     let body ={
-      'clgRgsCd':form.value['clgSelector'],
+      'clgRgsCd':this.selectedClg.clgRgstCd,
       'driveDate':form.value['driveDate'],
       'totalQues':totalQues,
       'allocatedTime':form.value['allocatedTime'],
@@ -101,7 +101,9 @@ delQuesCat(index:number){
     .subscribe((data:any)=>{
       if(data.success==true){
         this.toastr.success("Test Create Successfully, TestID: "+data.obj.id);
-        this.createdTestId=data.obj.id;
+        console.log(JSON.stringify(this.selectedClg.clgRgstCd));
+        
+        this.createdTestId='http://localhost:4200/quiz/'+this.selectedClg.collegeId.clgName+"/"+data.obj.id;
         console.log("success"+JSON.stringify(data));
       }
       else{

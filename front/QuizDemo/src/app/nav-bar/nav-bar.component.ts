@@ -8,13 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-
-  constructor(private router:Router, private userService:UserService) { }
+  isLoggedIn;
+  constructor(private router:Router, private userService:UserService) { 
+    this.isLoggedIn= localStorage.getItem("isLoggedIn");
+  }
 
   ngOnInit() {
   }
   Logout(){
-    localStorage.removeItem("userToken");
+    localStorage.clear();
+    // localStorage.removeItem("userToken");
+    // localStorage.removeItem("isLoggedIn");
+    // localStorage.removeItem("emailId");
+    // localStorage.removeItem("userRole");
+    // localStorage.removeItem("emailId");
     this.router.navigate(['/login']);
   }
 

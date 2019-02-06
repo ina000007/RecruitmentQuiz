@@ -13,4 +13,7 @@ export class TestSetService {
     return this.http.post(this.rootUrl+'/api/testset/createtest ',body);
   }
 
+  getTestSet(id){
+    return this.http.get(this.rootUrl+'/api/testset/testsetdetail/'+id);
+  }
 }

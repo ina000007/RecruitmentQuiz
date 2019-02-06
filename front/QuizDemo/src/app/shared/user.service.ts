@@ -38,4 +38,12 @@ export class UserService {
      }
      return isMatched;
    }
+   isLoggedIn():boolean{
+     var logged=false;
+     if(localStorage.getItem("isLoggedIn")=="true"){
+      logged = true;
+     }
+     return logged;
+      
+   }
 }

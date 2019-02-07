@@ -1,10 +1,44 @@
 <app-nav-bar></app-nav-bar> 
 <div class="container">
   <div class="row">
-    <div class="col s8 offset-s2">   
-      <div class="card-panel teal "> 
-          <label class="white-text"><h5>Enter Test ID</h5></label>  
-        </div>
+    <div class="col s10 offset-s1">  
+      <form action="#"> 
+        <div class="card">
+            <div class="card-content">
+              <div *ngIf="ques">
+              <div>{{ques.questionDesc}}</div>
+                  <p>
+                    <label>
+                      <input class="with-gap" name="group1" type="radio" />
+                      <span>{{ques.option1}}</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input class="with-gap" name="group1" type="radio" />
+                      <span>{{ques.option2}}</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input class="with-gap" name="group1" type="radio"  />
+                      <span>{{ques.option3}}</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input class="with-gap" name="group1" type="radio"  />
+                      <span>{{ques.option4}}</span>
+                    </label>
+                  </p>
+                  </div>
+            </div>
+          </div>
+        </form>
+        <ul class="pagination">
+            <li #ref class="waves-effect" *ngFor="let ques of quesLst; index as i"
+             (click)="showQues(i,ref)"><a>{{i+1}}</a></li>
+          </ul>
     </div>
   </div>
 </div>  

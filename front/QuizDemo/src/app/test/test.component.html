@@ -1,44 +1,56 @@
-<app-nav-bar></app-nav-bar> 
+<app-nav-bar></app-nav-bar>
 <div class="container">
-  <div class="row">
-    <div class="col s10 offset-s1">  
-      <form action="#"> 
-        <div class="card">
-            <div class="card-content">
-              <div *ngIf="ques">
-              <div>{{ques.questionDesc}}</div>
-                  <p>
-                    <label>
-                      <input class="with-gap" name="group1" type="radio" />
-                      <span>{{ques.option1}}</span>
-                    </label>
-                  </p>
-                  <p>
-                    <label>
-                      <input class="with-gap" name="group1" type="radio" />
-                      <span>{{ques.option2}}</span>
-                    </label>
-                  </p>
-                  <p>
-                    <label>
-                      <input class="with-gap" name="group1" type="radio"  />
-                      <span>{{ques.option3}}</span>
-                    </label>
-                  </p>
-                  <p>
-                    <label>
-                      <input class="with-gap" name="group1" type="radio"  />
-                      <span>{{ques.option4}}</span>
-                    </label>
-                  </p>
-                  </div>
-            </div>
-          </div>
-        </form>
-        <ul class="pagination">
-            <li #ref class="waves-effect" *ngFor="let ques of quesLst; index as i"
-             (click)="showQues(i,ref)"><a>{{i+1}}</a></li>
-          </ul>
-    </div>
-  </div>
+	<div class="row">
+		<div class="col s10 offset-s1">
+			<form action="#">
+				<div class="card">
+					<div class="card-content">
+						<div *ngIf="ques">
+							<div>{{ques.questionDesc}}</div>
+							<p>
+								<label>
+                  <input class="with-gap" name="group1" type="radio" value="{{ques.option1}}"
+                  [checked]=" ques.option1==ques.selectedOpt"  (change)="selectedOption($event)"/>
+									<span>{{ques.option1}}</span>
+								</label>
+							</p>
+							<p>
+								<label>
+                  <input class="with-gap" name="group1" type="radio"  value="{{ques.option2}}" 
+                  [checked]=" ques.option2==ques.selectedOpt"  (change)="selectedOption($event)" />
+									<span>{{ques.option2}}</span>
+								</label>
+							</p>
+							<p>
+								<label>
+                  <input class="with-gap" name="group1" type="radio" value="{{ques.option3}}" 
+                  [checked]=" ques.option3==ques.selectedOpt"  (change)="selectedOption($event)" />
+									<span>{{ques.option3}}</span>
+								</label>
+							</p>
+							<p>
+								<label>
+                  <input class="with-gap" name="group1" type="radio" value="{{ques.option4}}"
+                  [checked]=" ques.option4==ques.selectedOpt"  (change)="selectedOption($event)"/>
+									<span>{{ques.option4}}</span>
+								</label>
+							</p>
+						</div>
+						<div  class="card-action">
+							<!-- <a  class="waves-effect waves-light btn left" (click)='saveAns(ques)' >Save</a> -->
+							<a  class="waves-effect waves-light btn right" (click)='resetSaveAns(ques)' >Reset</a>
+						</div>
+					</div>
+				</div>
+			</form>
+			<ul class="pagination center" #ref>
+          <!-- <li class=" waves-effect" [class.disabled]="selectedPage<1" (click)="show(-1,ref)"><a><i class="material-icons">chevron_left</i></a></li> -->
+          <li #ref class="waves-effect" *ngFor="let ques of quesLst; index as i"
+             (click)="showQues(i,ref)">
+					<a>{{i+1}}</a>
+        </li>
+        <!-- <li class="waves-effect" [class.disabled]="selectedPage==quesLst.length-1" (click)="show(1,ref)"><a><i class="material-icons">chevron_right</i></a></li> -->
+			</ul>
+		</div>
+	</div>
 </div>  

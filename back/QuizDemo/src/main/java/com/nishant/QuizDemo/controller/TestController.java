@@ -3,15 +3,20 @@ package com.nishant.QuizDemo.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nishant.QuizDemo.model.Question;
@@ -99,5 +104,52 @@ public class TestController {
 			return ResponseEntity.ok(new GenericApiResponse(true, "Test Already Created", questionLst));
 		}
 	}
+	
+	@PostMapping("/saveans")
+	public ResponseEntity<?>  saveAns(@RequestBody Map<String,Object> payLoad){
 
+		UserQuesAnsId userQuesAnsId = new UserQuesAnsId(payLoad.get("testId")+"",payLoad.get("emailId")+"",payLoad.get("quesId")+"");
+		Optional<UserQuesAnsDetail> res = userQuesAnsDetailRepository.findByUserQuesAnsId(userQuesAnsId);
+		UserQuesAnsDetail u;
+		String selectedOptionVal;
+		if(res.isPresent()) {
+			u = res.get();
+			selectedOptionVal = payLoad.get("selectedOptionVal")+"";
+			u.setSelectedOption(selectedOptionVal);
+			if(selectedOptionVal.equalsIgnoreCase(u.getCorrectOption()))
+				u.setIsCorrect("1");
+			else
+				u.setIsCorrect("0");
+			userQuesAnsDetailRepository.save(u);
+		}
+	    System.out.println(payLoad);
+	    
+	    return ResponseEntity.ok(new GenericApiResponse(true, "Save", null));
+	}
+	@PostMapping("/reset")
+	public ResponseEntity<?> reset(@RequestBody Map<String,Object> payLoad){
+
+		UserQuesAnsId userQuesAnsId = new UserQuesAnsId(payLoad.get("testId")+"",payLoad.get("emailId")+"",payLoad.get("quesId")+"");
+		Optional<UserQuesAnsDetail> res = userQuesAnsDetailRepository.findByUserQuesAnsId(userQuesAnsId);
+		UserQuesAnsDetail u;
+		String selectedOptionVal;
+		Question question = null;
+		QuestionAnswer quesAns=null;
+		if(res.isPresent()) {
+			u = res.get();
+//			selectedOptionVal = payLoad.get("selectedOptionVal")+"";
+			u.setSelectedOption("");
+			u.setIsCorrect("");
+			userQuesAnsDetailRepository.save(u);
+			
+			Optional<QuestionAnswer> res2 = questionAnswerRepository.findById(Long.parseLong(payLoad.get("quesId")+""));
+			if(res2.isPresent()) {
+				quesAns= res2.get();	
+				question = new Question(Long.parseLong((payLoad.get("quesId")+"")), quesAns.getQuestionDesc(), quesAns.getOption1(), 
+					quesAns.getOption2(), quesAns.getOption3(), quesAns.getOption4(), u.getSelectedOption());
+			}
+		}
+	    System.out.println(payLoad);
+	    return ResponseEntity.ok(new GenericApiResponse(true, "Reset", question));
+	}
 }

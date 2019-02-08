@@ -13,14 +13,16 @@ export class TestComponent implements OnInit {
   quesLst;
   ques;
   selectedPage;
+  dis=true;
   crrRef;
   preRef;
-  
+  selectedOptionVal;
   constructor(private router:Router, private testService:TestService) {
     let cUrl=router.url;
     this.testId = cUrl.substring(cUrl.lastIndexOf("/")+1);
     this.emailId = localStorage.getItem("emailId");
     this.initializeTest();
+    this.quesLst=[];
    }
 
   ngOnInit() {
@@ -46,13 +48,69 @@ export class TestComponent implements OnInit {
     });
   }
   showQues(index,ref){
-    this.ques=this.quesLst[index];
-    console.log("here "+JSON.stringify(ref));
+    // this.ques=this.quesLst[index];
     // ref.className = 'active'
     if(this.preRef!=null)
     this.preRef.classList.remove('active');
     ref.classList.add('active');
     this.preRef=ref;
+    this.selectedPage = index;
+    this.ques=this.quesLst[index];
+  }
+  // show(indx,ref){
+  //   // alert("here");
+  //   let index = this.selectedPage + indx;
+  //   console.log("index "+index);
+    
+  //   if(index>=0 && index<this.quesLst.length)
+  //       this.showQues(index,ref);
+  // }
+  selectedOption(event:any){
+    this.selectedOptionVal = event.target.value;
+    this.saveAns(this.ques);
+  }
+  saveAns(ques){
+    console.log("called saveAns service");
+    
+    let body={
+      "emailId":this.emailId,
+      "testId":this.testId,
+      "quesId":ques.id,
+      "selectedOptionVal":this.selectedOptionVal
+    };
+    
+    this.testService.saveAnsDetails(body)
+    .subscribe((data:any)=>{
+      if(data.success==true){
+        this.ques.selectedOpt = this.selectedOptionVal;
+        this.quesLst[this.selectedPage]=this.ques;
+      }
+      else{
+        
+      }
+    });
+  }
+
+  resetSaveAns(q){
+    console.log("called Reset service");
+    
+    let body={
+      "emailId":this.emailId,
+      "testId":this.testId,
+      "quesId":q.id,
+      "selectedOptionVal": ""
+    };
+    
+    this.testService.resetSaveAnsDetails(body)
+    .subscribe((data:any)=>{
+      if(data.success==true){
+        this.ques= data.obj;
+        this.quesLst[this.selectedPage]=this.ques;
+      }
+      else{
+        
+      }
+    });
   }
 
 }

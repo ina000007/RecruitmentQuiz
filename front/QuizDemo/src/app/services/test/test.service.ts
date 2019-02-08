@@ -12,4 +12,12 @@ export class TestService {
   initialize(emailId,testId){
     return this.http.get(this.rootUrl+'/api/test/initialize/'+testId+"/"+emailId);
   }
+  
+  saveAnsDetails(body){
+    return this.http.post(this.rootUrl+'/api/test/saveans',body);
+  }
+
+  resetSaveAnsDetails(body){
+    return this.http.post(this.rootUrl+'/api/test/reset',body);
+  }
 }

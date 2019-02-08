@@ -1,3 +1,4 @@
+import { Constants } from './../../constants';
 import { QuesCategory } from './ques-category.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -7,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class QuesCategoryService {
 
-  readonly rootUrl = "http://localhost:5000";
+  readonly rootUrl = Constants.SERVICE_URL;
   constructor(private http:HttpClient) {
    }
 

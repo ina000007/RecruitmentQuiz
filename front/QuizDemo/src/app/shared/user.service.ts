@@ -1,3 +1,4 @@
+import { Constants } from './../constants';
 import { Injectable } from '@angular/core';
 import{ HttpClient, HttpHeaders } from '@angular/common/http';
 import{ Response } from '@angular/http';
@@ -9,7 +10,7 @@ import { User } from './user.model';
   providedIn: 'root'
 })
 export class UserService {
-  readonly rootUrl = "http://localhost:5000";
+  readonly rootUrl = Constants.SERVICE_URL;
   constructor(private http:HttpClient) {
    }
    registerUser(user:User){

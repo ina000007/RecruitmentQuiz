@@ -43,9 +43,9 @@
 					</div>
 				</div>
 			</form>
-			<ul class="pagination center" #ref>
+			<ul class="pagination center" >
           <!-- <li class=" waves-effect" [class.disabled]="selectedPage<1" (click)="show(-1,ref)"><a><i class="material-icons">chevron_left</i></a></li> -->
-          <li #ref class="waves-effect" *ngFor="let ques of quesLst; index as i"
+          <li #ref class="waves-effect" *ngFor="let ques of quesLst; index as i" 
              (click)="showQues(i,ref)">
 					<a>{{i+1}}</a>
         </li>

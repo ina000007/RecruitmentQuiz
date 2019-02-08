@@ -1,12 +1,14 @@
+import { Constants } from './../../constants';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class TestService {
 
-  readonly rootUrl = "http://localhost:5000";
+  readonly rootUrl = Constants.SERVICE_URL;
   constructor(private http: HttpClient) { }
 
   initialize(emailId,testId){

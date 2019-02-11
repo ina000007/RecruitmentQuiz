@@ -29,6 +29,8 @@ import { CreateTestComponent } from './create-test/create-test.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { StartTestComponent } from './start-test/start-test.component';
 import { TestComponent } from './test/test.component';
+import { SumbitTestComponent } from './sumbit-test/sumbit-test.component';
+import { TestResultComponent } from './test-result/test-result.component';
  
     @NgModule({
       declarations: [
@@ -45,7 +47,9 @@ import { TestComponent } from './test/test.component';
         AddCollegeComponent,
         CreateTestComponent,
         StartTestComponent,
-        TestComponent
+        TestComponent,
+        SumbitTestComponent,
+        TestResultComponent
       ],
       imports: [
         BrowserModule,

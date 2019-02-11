@@ -1,0 +1,36 @@
+<app-nav-bar></app-nav-bar> 
+<div class="container">
+  <div class="row">
+    <div class="col s10 offset-s1">   
+      <div class="card-panel teal ">  
+          <div class="input-field ">
+                <input class="white-text" type="text" #testId ngModel name="testId" placeholder="Test ID"> 
+                <a  class="waves-effect waves-light btn " (click)='getResult(testId.value)'>Get Result</a>
+          </div>
+        </div>
+    </div>
+  </div>
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title"></h4>
+    <table class="table table-stripped">
+      <tbody>
+        <tr>
+          <td>S.no</td>
+          <td>Name</td>
+          <td>Email</td>
+          <td>Marks</td>
+        </tr>
+        <tr *ngFor="let result of resultSet; index as i">
+            <td>{{i+1}}</td>
+            <td>{{result.name}}</td>
+            <td>{{result.emailId}}</td>
+            <td>{{result.obtainedMrk}}</td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div>  

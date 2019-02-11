@@ -1,3 +1,5 @@
+import { TestResultComponent } from './test-result/test-result.component';
+import { SumbitTestComponent } from './sumbit-test/sumbit-test.component';
 import { TestComponent } from './test/test.component';
 import { StartTestComponent } from './start-test/start-test.component';
 import { CreateTestComponent } from './create-test/create-test.component';
@@ -17,13 +19,17 @@ import { UploadQuestionComponent } from './upload-question/upload-question.compo
 export const appRoutes: Routes=[
     {path:'home', component:HomeComponent, canActivate:[AuthGuard]},
     {path:'forbidden', component:ForbiddenComponent, canActivate:[AuthGuard]},
+
     {path:'adminPanel', component:AdminPanelComponent, canActivate:[AuthGuard], data: {role:['ROLE_ADMIN']}},
     {path:'uploadQuestion', component:UploadQuestionComponent, canActivate:[AuthGuard], data: {role:['ROLE_ADMIN']}},
     {path:'updateQuestion', component: UpdateQuestionComponent, canActivate:[AuthGuard], data: {role:['ROLE_ADMIN']}},
     {path:'addCollege', component: AddCollegeComponent, canActivate:[AuthGuard], data: {role:['ROLE_ADMIN']}},
     {path:'createTest', component: CreateTestComponent, canActivate:[AuthGuard], data: {role:['ROLE_ADMIN']}},
     {path:'startTest', component: StartTestComponent, canActivate:[AuthGuard], data: {role:['ROLE_ADMIN']}},
+    {path:'testResult', component: TestResultComponent, canActivate:[AuthGuard], data: {role:['ROLE_ADMIN']}},
+
     {path:'test/:clgName/:id', component: TestComponent, canActivate:[AuthGuard]},
+    {path:'submitTest', component: SumbitTestComponent, canActivate:[AuthGuard]},
 
     {
     path:'signup', component:UserComponent,

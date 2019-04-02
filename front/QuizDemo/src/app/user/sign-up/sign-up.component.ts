@@ -1,3 +1,4 @@
+import { AppComponent } from './../../app.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../shared/user.model';
 import { Component, OnInit } from '@angular/core';
@@ -13,7 +14,7 @@ import { ToastrService} from 'ngx-toastr';
 export class SignUpComponent implements OnInit {
   user: User;
   constructor(private userService: UserService,private router:Router,
-     private toastr: ToastrService,private route: ActivatedRoute) {
+     private toastr: ToastrService,private route: ActivatedRoute, private appComponent:AppComponent ) {
    }
 
   ngOnInit() {
@@ -32,9 +33,11 @@ export class SignUpComponent implements OnInit {
   }
   OnSubmit(form:NgForm){
     console.log("called onsubmit");
+    this.appComponent.showLoadingIndicator=true;
     this.userService.registerUser(form.value)
       .subscribe((data:any)=>{
         if(data.success == true){
+          this.appComponent.showLoadingIndicator=false;
           console.log("User register"+data);
           // this.resetForm(form);
           this.toastr.success("success "+data.message);
@@ -47,6 +50,7 @@ export class SignUpComponent implements OnInit {
         });
         } 
         else{
+          this.appComponent.showLoadingIndicator=false;
           console.log("User register failed "+data);
           this.toastr.error("Error "+data.message);
         }

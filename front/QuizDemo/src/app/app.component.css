@@ -7,9 +7,19 @@
     animation: spin 700ms linear infinite;
     top:50%;
     left:50%;
+    z-index: 1;
     position: absolute;
   }
   @keyframes spin {
     0% { transform: rotate(0deg) }
     100% { transform: rotate(360deg) }
   }
+  .overlay {
+    background-color: rgba(1, 1, 1, 0.2);
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}

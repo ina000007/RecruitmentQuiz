@@ -62,6 +62,8 @@ public class TestController {
 		List<QuestionAnswer> questionAnswerLst = new ArrayList();
 //		searching set test by testId 
 		Optional<TestSet> result = testSetRepository.findById(Long.parseLong(testId));
+		
+		
 //		Check if user not registered in this test
 		if (userQuesAnsDetailRepository.findByUserQuesAnsIdEmailIdTestId(emailId, testId).size() == 0) {
 //			if test set is present by the requested testid

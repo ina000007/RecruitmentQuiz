@@ -1,3 +1,4 @@
+import { AppComponent } from './../../app.component';
 import { UserService } from './../../shared/user.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -11,7 +12,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class SignInComponent implements OnInit {
   isLoginError: boolean = false;
    
-  constructor(private userService:UserService, private router:Router,private route: ActivatedRoute) { 
+  constructor(private userService:UserService, private router:Router,private route: ActivatedRoute,
+  private appComponent:AppComponent) { 
 
     localStorage.clear();
 
@@ -22,7 +24,9 @@ export class SignInComponent implements OnInit {
   onSubmit(usernameOrEmail,password){
     usernameOrEmail = String(usernameOrEmail).trim();
     password = String(password).trim();
+    this.appComponent.showLoadingIndicator=true;
     this.userService.userAuthentication(usernameOrEmail,password).subscribe((data: any)=>{
+      this.appComponent.showLoadingIndicator=false;
         localStorage.setItem("userToken",data.accessToken);
         localStorage.setItem("userRole",data.role.name);
         localStorage.setItem("isLoggedIn","true");
@@ -31,6 +35,7 @@ export class SignInComponent implements OnInit {
         this.router.navigate([returnUrl || '/home']);
     },
   (err : HttpErrorResponse)=>{
+    this.appComponent.showLoadingIndicator=false;
      this.isLoginError=true;
   });
   }

@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.nishant.QuizDemo.utils.Utility;
+
 @Entity
 @Table(name = "TestSet")
 public class TestSet {
@@ -31,6 +33,9 @@ public class TestSet {
 	
 	@NotBlank
 	private String maxMarks;
+	
+	@NotBlank
+	private String isActive;
 
 	public TestSet() {
 		super();
@@ -38,7 +43,8 @@ public class TestSet {
 	}
 
 	public TestSet( Long clgRgstCd, @NotBlank String driveDate, String startTime, String endTime,
-			@NotBlank String allocatedTime, @NotBlank String totalQues, @NotBlank String maxMarks) {
+			@NotBlank String allocatedTime, @NotBlank String totalQues, @NotBlank String maxMarks,
+			@NotBlank String isActive) {
 		super();
 		this.clgRgstCd = clgRgstCd;
 		this.driveDate = driveDate;
@@ -47,6 +53,15 @@ public class TestSet {
 		this.allocatedTime = allocatedTime;
 		this.totalQues = totalQues;
 		this.maxMarks = maxMarks;
+		this.isActive = isActive;
+	}
+
+	public String getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(String isActive) {
+		this.isActive = isActive;
 	}
 
 	@Override

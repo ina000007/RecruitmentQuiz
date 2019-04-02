@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./test.component.css']
 })
 export class TestComponent implements OnInit {
+  clock=10;
+  testStart=false;
   testId;
   emailId;
   quesLst;
@@ -17,18 +19,41 @@ export class TestComponent implements OnInit {
   crrRef;
   preRef;
   selectedOptionVal;
+  interval;
+  
+  countDown(){
+    this.interval = setInterval(() => {
+      if(this.clock>0)
+      this.clock--;
+      else{
+        console.log("here");
+        clearInterval(this.interval);
+        this.router.navigate(["/submitTest"]);
+        
+      }
+    }
+    , 1000);
+  }
+  updateTime(){
+    setInterval(() => {
+      if(this.clock>0)
+      this.clock--;
+    }
+    , 15000);
+  }
   constructor(private router:Router, private testService:TestService) {
     let cUrl=router.url;
     this.testId = cUrl.substring(cUrl.lastIndexOf("/")+1);
     this.emailId = localStorage.getItem("emailId");
     this.initializeTest();
     this.quesLst=[];
-   }
-
+    this.countDown();
+  }
+  
   ngOnInit() {
   }
   initializeTest(){
-
+    
     this.testService.initialize(this.emailId,this.testId)
     .subscribe((data:any)=>{
       if(data.success==true){
@@ -37,6 +62,7 @@ export class TestComponent implements OnInit {
         console.log(this.quesLst);
         this.selectedPage=0;
         this.ques=this.quesLst[0];
+        this.testStart = true;
         // for (let indx = 0; indx < this.quesLst.length; indx++) {
         //   this.isActive[indx]=false;
         // }
@@ -61,7 +87,7 @@ export class TestComponent implements OnInit {
   //   // alert("here");
   //   let index = this.selectedPage + indx;
   //   console.log("index "+index);
-    
+  
   //   if(index>=0 && index<this.quesLst.length)
   //       this.showQues(index,ref);
   // }
@@ -90,7 +116,7 @@ export class TestComponent implements OnInit {
       }
     });
   }
-
+  
   resetSaveAns(q){
     console.log("called Reset service");
     
@@ -112,5 +138,5 @@ export class TestComponent implements OnInit {
       }
     });
   }
-
+  
 }

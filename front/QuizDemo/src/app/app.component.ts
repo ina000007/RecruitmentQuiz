@@ -7,7 +7,7 @@ import { Event, Router, NavigationStart,NavigationEnd } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'QuizDemo';
+  title = 'Test';
   showLoadingIndicator = true;
   constructor(private _router: Router){
     this._router.events.subscribe((routerEvent: Event)=>{

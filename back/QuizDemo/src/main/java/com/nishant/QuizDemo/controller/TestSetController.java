@@ -39,6 +39,7 @@ import com.nishant.QuizDemo.payload.TestSetRequest;
 import com.nishant.QuizDemo.repository.CollegeDetailRepository;
 import com.nishant.QuizDemo.repository.TestQuestionSetRepository;
 import com.nishant.QuizDemo.repository.TestSetRepository;
+import com.nishant.QuizDemo.utils.Utility;
 
 @RestController
 @RequestMapping("/api/testset")
@@ -58,10 +59,20 @@ public class TestSetController {
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> createTest(@RequestBody TestSetRequest testSetRequest) {
 		System.out.println("NISHANT Creating test set ->" + testSetRequest);
+		
+		String allocatedTime = testSetRequest.getAllocatedTime();
+		String startTime = testSetRequest.getStrtTime();
+		String endTime = testSetRequest.getEndTime();
+		System.out.println("before time "+ startTime +" "+endTime+" "+ allocatedTime);
+		allocatedTime = Utility.minTohhmmss(Long.parseLong(allocatedTime));
+		startTime = Utility.hhmmTohhmmss(startTime);
+		endTime = Utility.hhmmTohhmmss(endTime);
+		System.out.println("after time "+ startTime +" "+endTime+" "+ allocatedTime);
+		if (endTime.equals("00:00:00"))
+			endTime = Utility.addhhmmss(startTime, allocatedTime);
 
-		TestSet testSet = new TestSet(testSetRequest.getClgRgsCd(), testSetRequest.getDriveDate(),
-				testSetRequest.getStrtTime(), testSetRequest.getEndTime(), testSetRequest.getAllocatedTime(),
-				testSetRequest.getTotalQues(), testSetRequest.getMaxMarks());
+		TestSet testSet = new TestSet(testSetRequest.getClgRgsCd(), testSetRequest.getDriveDate(), startTime, endTime,
+				allocatedTime, testSetRequest.getTotalQues(), testSetRequest.getMaxMarks(), "0");
 
 		testSet = testSetRepository.save(testSet);
 		System.out.println("herer--> " + testSet);
@@ -85,16 +96,23 @@ public class TestSetController {
 		CollegeDetail collegeDetail = null;
 		if (result.isPresent()) {
 			testSet = result.get();
+			
+//			check if testSet isActive or not
+			if(testSet.getIsActive().equals("0")) {
+				return ResponseEntity.ok(new GenericApiResponse(false, "Test Not Started", null));
+			}
 			Optional<CollegeDetail> clgResult = collegeDetailRepository.findByClgRgstCd(testSet.getClgRgstCd());
 			if (clgResult.isPresent()) {
 				collegeDetail = clgResult.get();
 			}
-		}
+			
 
-		Map<String, Object> map = new HashMap<>();
-		map.put("testSet", testSet);
-		map.put("collegeDetail", collegeDetail);
-		return ResponseEntity.ok(new GenericApiResponse(true, "Test Details", map));
+			Map<String, Object> map = new HashMap<>();
+			map.put("testSet", testSet);
+			map.put("collegeDetail", collegeDetail);
+			return ResponseEntity.ok(new GenericApiResponse(true, "Test Details", map));
+		}
+		return ResponseEntity.ok(new GenericApiResponse(false, "Invalid Test Id", null));
 
 	}
 }

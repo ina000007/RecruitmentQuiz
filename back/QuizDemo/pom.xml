@@ -69,6 +69,12 @@
 			<artifactId>json</artifactId>
 			<version>20180813</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.googlecode.usc/jdbcdslog -->
+		<dependency>
+			<groupId>com.googlecode.usc</groupId>
+			<artifactId>jdbcdslog</artifactId>
+			<version>1.0.6.2</version>
+		</dependency>
 
 	</dependencies>
 

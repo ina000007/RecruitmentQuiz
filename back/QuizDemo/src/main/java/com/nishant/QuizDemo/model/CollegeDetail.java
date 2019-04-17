@@ -18,7 +18,6 @@ import org.hibernate.annotations.NaturalId;
 public class CollegeDetail {
 	
 	@EmbeddedId
-	@NotBlank
 	private CollegeId collegeId;
 	
     private  String clgState;

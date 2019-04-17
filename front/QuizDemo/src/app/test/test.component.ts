@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./test.component.css']
 })
 export class TestComponent implements OnInit {
-  clock=10;
+  newClock;
+  clock;
   testStart=false;
   testId;
   emailId;
@@ -20,26 +21,39 @@ export class TestComponent implements OnInit {
   preRef;
   selectedOptionVal;
   interval;
-  
+  timeUpdt;
+  newClockFormat(clock){
+    this.newClock = new Date(clock * 1000).toISOString().substr(11, 8);
+  }
   countDown(){
     this.interval = setInterval(() => {
-      if(this.clock>0)
+      if(this.clock>0){
       this.clock--;
+      this.newClockFormat(this.clock);
+    }
       else{
-        console.log("here");
+        console.log("here in counter "+this.clock);
         clearInterval(this.interval);
+        if(this.clock==0)
         this.router.navigate(["/submitTest"]);
-        
       }
     }
     , 1000);
   }
   updateTime(){
-    setInterval(() => {
-      if(this.clock>0)
-      this.clock--;
+    this.timeUpdt = setInterval(() => {
+      if(this.clock>0){
+        this.testService.updateTimer(this.emailId,this.testId)
+        .subscribe((data:any)=>{
+          console.log("time updated "+this.clock+"  "+this.newClock);
+          
+        });
+      }
+      else{
+        clearInterval(this.timeUpdt);
+      }
     }
-    , 15000);
+    , 60000);
   }
   constructor(private router:Router, private testService:TestService) {
     let cUrl=router.url;
@@ -48,8 +62,18 @@ export class TestComponent implements OnInit {
     this.initializeTest();
     this.quesLst=[];
     this.countDown();
+    this.intiClock();
+    
   }
-  
+  ngOnDestroy() {
+    this.testService.updateTimeWithTime(this.clock,this.emailId,this.testId)
+    .subscribe((data:any)=>{
+      console.log("time updated final only once "+this.clock);
+      this.clock=-1;
+      console.log("view");
+    });
+
+  }
   ngOnInit() {
   }
   initializeTest(){
@@ -57,12 +81,14 @@ export class TestComponent implements OnInit {
     this.testService.initialize(this.emailId,this.testId)
     .subscribe((data:any)=>{
       if(data.success==true){
-        console.log("success "+JSON.stringify(data));
+        console.log("123 success "+JSON.stringify(data));
         this.quesLst =  data.obj;
         console.log(this.quesLst);
         this.selectedPage=0;
         this.ques=this.quesLst[0];
         this.testStart = true;
+        this.updateTime();
+
         // for (let indx = 0; indx < this.quesLst.length; indx++) {
         //   this.isActive[indx]=false;
         // }
@@ -73,6 +99,20 @@ export class TestComponent implements OnInit {
       }
     });
   }
+
+  intiClock(){
+    this.testService.getTime(this.emailId,this.testId)
+    .subscribe((data:any)=>{
+      if(data!=null){
+        console.log("22 success "+JSON.stringify(data));
+        this.clock = data.time;
+      }
+      else{
+        console.log("fail "+JSON.stringify(data));
+      }
+    });
+  }
+  
   showQues(index,ref){
     // this.ques=this.quesLst[index];
     // ref.className = 'active'

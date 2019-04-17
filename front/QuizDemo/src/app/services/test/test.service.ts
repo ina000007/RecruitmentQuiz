@@ -22,4 +22,15 @@ export class TestService {
   resetSaveAnsDetails(body){
     return this.http.post(this.rootUrl+'/api/test/reset',body);
   }
+
+  getTime(emailId,testId){
+    return this.http.get(this.rootUrl+'/api/test/time/'+testId+"/"+emailId);
+  }
+
+  updateTimer(emailId,testId){
+    return this.http.get(this.rootUrl+'/api/test/ping/'+testId+"/"+emailId);
+  }
+  updateTimeWithTime(time,emailId,testId){
+    return this.http.get(this.rootUrl+'/api/test/ping/'+time+'/'+testId+"/"+emailId);
+  }
 }

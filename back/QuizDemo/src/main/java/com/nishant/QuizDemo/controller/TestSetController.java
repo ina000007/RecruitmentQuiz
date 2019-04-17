@@ -1,5 +1,6 @@
 package com.nishant.QuizDemo.controller;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.json.JSONObject;
+import org.quartz.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,7 @@ import com.nishant.QuizDemo.payload.TestSetRequest;
 import com.nishant.QuizDemo.repository.CollegeDetailRepository;
 import com.nishant.QuizDemo.repository.TestQuestionSetRepository;
 import com.nishant.QuizDemo.repository.TestSetRepository;
+import com.nishant.QuizDemo.schedular.TestJobScheduler;
 import com.nishant.QuizDemo.utils.Utility;
 
 @RestController
@@ -53,11 +56,14 @@ public class TestSetController {
 	@Autowired
 	CollegeDetailRepository collegeDetailRepository;
 
+	@Autowired
+	TestJobScheduler testJobScheduler;
+	
 	TestQuestionSet testQuestionSet;
-
+	
 	@PostMapping("/createtest")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<?> createTest(@RequestBody TestSetRequest testSetRequest) {
+	public ResponseEntity<?> createTest(@RequestBody TestSetRequest testSetRequest) throws InterruptedException, ParseException, SchedulerException {
 		System.out.println("NISHANT Creating test set ->" + testSetRequest);
 		
 		String allocatedTime = testSetRequest.getAllocatedTime();
@@ -84,9 +90,14 @@ public class TestSetController {
 			System.out.println("nishant " + testQuestionSet);
 			testQuestionSetRepository.save(testQuestionSet);
 		}
+		testJobScheduler.scheduleJob(testSet.getId()+"",testSet.getDriveDate(),testSet.getStartTime(), testSet.getEndTime());
+//		myScheduler.scheduleJob("123321");
+//		testSchedulerConfig.scheduleTest(testSet.getId()+"");
 		return ResponseEntity.ok(new GenericApiResponse(true, "Test Has created", testSet));
 
 	}
+
+
 
 	@GetMapping("/testsetdetail/{testId}")
 	public ResponseEntity<?> testSertDetail(@PathVariable("testId") String testId) throws JsonProcessingException {

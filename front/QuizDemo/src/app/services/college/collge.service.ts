@@ -11,7 +11,7 @@ export class CollgeService {
   constructor(private http: HttpClient) { }
 
   addClg(body){
-    return this.http.post(this.rootUrl+'/api/testset/addcollege',body);
+    return this.http.post(this.rootUrl+'/api/college/addcollege',body);
   }
   getAllClg(){
     return this.http.get(this.rootUrl+'/api/college/getcollege');

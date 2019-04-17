@@ -66,4 +66,18 @@ public class Utility {
 		return timeSec;
 		
 	}
+	
+	public static boolean IsBlank(String str) {
+        if(str != null &&  !str.equalsIgnoreCase("null") && !str.isEmpty())
+            return false;
+        return true;
+	}
+	
+	public static String secTohhmmss(int sec) {
+		Date d = new Date(sec * 1000L);
+		SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss"); // HH for 0-23
+		df.setTimeZone(TimeZone.getTimeZone("GMT"));
+		String time = df.format(d);
+		return time;
+	}
 }

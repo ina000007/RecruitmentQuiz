@@ -62,7 +62,7 @@ export class TestComponent implements OnInit {
     this.initializeTest();
     this.quesLst=[];
     this.countDown();
-    this.intiClock();
+
     
   }
   ngOnDestroy() {
@@ -87,6 +87,7 @@ export class TestComponent implements OnInit {
         this.selectedPage=0;
         this.ques=this.quesLst[0];
         this.testStart = true;
+        this.intiClock();
         this.updateTime();
 
         // for (let indx = 0; indx < this.quesLst.length; indx++) {

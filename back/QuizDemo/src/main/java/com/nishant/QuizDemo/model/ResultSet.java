@@ -5,6 +5,13 @@ public class ResultSet {
 	private String emailId;
 	private String obtainedMrk;
 	private String name;
+	
+    public int compareTo(ResultSet rs) 
+    { 
+        return Integer.parseInt(rs.obtainedMrk) - Integer.parseInt(this.obtainedMrk); 
+    } 
+  
+	
 	public ResultSet() {
 		super();
 		// TODO Auto-generated constructor stub

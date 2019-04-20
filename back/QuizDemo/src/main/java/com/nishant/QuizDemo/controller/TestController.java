@@ -24,6 +24,7 @@ import com.nishant.QuizDemo.model.Question;
 import com.nishant.QuizDemo.model.QuestionAnswer;
 import com.nishant.QuizDemo.model.TestQuestionSet;
 import com.nishant.QuizDemo.model.TestSet;
+import com.nishant.QuizDemo.model.TestSubmit;
 import com.nishant.QuizDemo.model.UserQuesAnsDetail;
 import com.nishant.QuizDemo.model.UserQuesAnsId;
 import com.nishant.QuizDemo.model.UserTestTimeLeft;
@@ -31,6 +32,7 @@ import com.nishant.QuizDemo.payload.GenericApiResponse;
 import com.nishant.QuizDemo.repository.QuestionAnswerRepository;
 import com.nishant.QuizDemo.repository.TestQuestionSetRepository;
 import com.nishant.QuizDemo.repository.TestSetRepository;
+import com.nishant.QuizDemo.repository.TestSubmitRepository;
 import com.nishant.QuizDemo.repository.UserQuesAnsDetailRepository;
 import com.nishant.QuizDemo.repository.UserTestTimeLeftRepository;
 import com.nishant.QuizDemo.utils.Utility;
@@ -53,6 +55,9 @@ public class TestController {
 
 	@Autowired
 	UserTestTimeLeftRepository userTestTimeLeftRepository;
+	
+	@Autowired
+	TestSubmitRepository testSubmitRepository;
 
 	@RequestMapping(value = "/initialize/{testId}/{emailId}", method = RequestMethod.GET)
 	public ResponseEntity<?> initialize(@PathVariable("testId") String testId,
@@ -74,6 +79,7 @@ public class TestController {
 		if (userQuesAnsDetailRepository.findByUserQuesAnsIdEmailIdTestId(emailId, testId).size() == 0) {
 //			if test set is present by the requested testid
 			if (result.isPresent()) {
+				testSubmitRepository.save(new TestSubmit(emailId,testId,"0"));
 				testSet = result.get();
 				userTestTimeLeftRepository.save(new UserTestTimeLeft(testSet.getAllocatedTime(), emailId, testId));
 				testQuestionSetLst = testQuestionSetRepository.findByTestSetId(Long.parseLong(testId));
@@ -101,6 +107,10 @@ public class TestController {
 			}
 			return ResponseEntity.ok(new GenericApiResponse(true, "Test Created", questionLst));
 		} else {
+			TestSubmit testSubmit = testSubmitRepository.findTestSubmitByIdEmailIdTestId(emailId, testId);
+			if(testSubmit.getIsTestSubmitted().equals("1")) {
+				return ResponseEntity.ok(new GenericApiResponse(false, "Test Already Submitted", null));
+			}
 			for (UserQuesAnsDetail u : userQuesAnsDetailRepository.findByUserQuesAnsIdEmailIdTestId(emailId, testId)) {
 				String qId = u.getUserQuesAnsId().getQuesId();
 				Optional<QuestionAnswer> res = questionAnswerRepository.findById(Long.parseLong(qId));
@@ -206,6 +216,25 @@ public class TestController {
 		userTestTimeLeft.setTimeLeft(time);
 		System.out.println(".............saving time.........."+time);
 		userTestTimeLeftRepository.save(userTestTimeLeft);
+	}
+	
+	@RequestMapping(value = "/submit/{testId}/{emailId}", method = RequestMethod.GET)
+	public void submit(@PathVariable("testId") String testId, @PathVariable("emailId") String emailId) {
+
+		TestSubmit testSubmit = testSubmitRepository.findTestSubmitByIdEmailIdTestId(emailId, testId);
+		testSubmit.setIsTestSubmitted("1");
+		testSubmitRepository.save(testSubmit);
+	}
+	@RequestMapping(value = "/uservalidity/{testId}/{emailId}", method = RequestMethod.GET)
+	public ResponseEntity<?> userValidaity(@PathVariable("testId") String testId, @PathVariable("emailId") String emailId) {
+
+		TestSubmit testSubmit = testSubmitRepository.findTestSubmitByIdEmailIdTestId(emailId, testId);
+		if(testSubmit !=null) {
+			if(testSubmit.getIsTestSubmitted().equals("1"))
+				return ResponseEntity.ok(new GenericApiResponse(false, "Test Already Submitted", null));
+		}
+		
+		return ResponseEntity.ok(new GenericApiResponse(true, "Allowed to take test", null));
 	}
 	
 }

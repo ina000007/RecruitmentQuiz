@@ -28,14 +28,16 @@ export class TestComponent implements OnInit {
   countDown(){
     this.interval = setInterval(() => {
       if(this.clock>0){
-      this.clock--;
-      this.newClockFormat(this.clock);
-    }
+        this.clock--;
+        this.newClockFormat(this.clock);
+      }
       else{
         console.log("here in counter "+this.clock);
         clearInterval(this.interval);
-        if(this.clock==0)
-        this.router.navigate(["/submitTest"]);
+        if(this.clock==0){
+          this.submit();
+          this.router.navigate(["/submitTest"]);
+        }
       }
     }
     , 1000);
@@ -61,8 +63,8 @@ export class TestComponent implements OnInit {
     this.emailId = localStorage.getItem("emailId");
     this.initializeTest();
     this.quesLst=[];
-    this.countDown();
-
+    
+    
     
   }
   ngOnDestroy() {
@@ -72,7 +74,7 @@ export class TestComponent implements OnInit {
       this.clock=-1;
       console.log("view");
     });
-
+    
   }
   ngOnInit() {
   }
@@ -81,15 +83,14 @@ export class TestComponent implements OnInit {
     this.testService.initialize(this.emailId,this.testId)
     .subscribe((data:any)=>{
       if(data.success==true){
-        console.log("123 success "+JSON.stringify(data));
         this.quesLst =  data.obj;
-        console.log(this.quesLst);
         this.selectedPage=0;
         this.ques=this.quesLst[0];
         this.testStart = true;
         this.intiClock();
         this.updateTime();
-
+       
+        
         // for (let indx = 0; indx < this.quesLst.length; indx++) {
         //   this.isActive[indx]=false;
         // }
@@ -100,13 +101,16 @@ export class TestComponent implements OnInit {
       }
     });
   }
-
+  
   intiClock(){
+    console.log("called inticlock");
+    
     this.testService.getTime(this.emailId,this.testId)
     .subscribe((data:any)=>{
       if(data!=null){
         console.log("22 success "+JSON.stringify(data));
         this.clock = data.time;
+        this.countDown();
       }
       else{
         console.log("fail "+JSON.stringify(data));
@@ -179,5 +183,13 @@ export class TestComponent implements OnInit {
       }
     });
   }
+
+  submit(){
+    this.testService.submitTest(this.emailId,this.testId)
+    .subscribe((data:any)=>{
+      console.log("Test has been submitted successfull");
+    });
+  }
+  
   
 }

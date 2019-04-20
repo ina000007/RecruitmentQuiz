@@ -40,6 +40,12 @@ public class ResultSet {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
+	@Override
+	public String toString() {
+		return "ResultSet [emailId=" + emailId + ", obtainedMrk=" + obtainedMrk + ", name=" + name + "]";
+	}
 	
 	
 }

@@ -33,4 +33,10 @@ export class TestService {
   updateTimeWithTime(time,emailId,testId){
     return this.http.get(this.rootUrl+'/api/test/ping/'+time+'/'+testId+"/"+emailId);
   }
+  submitTest(emailId,testId){
+    return this.http.get(this.rootUrl+'/api/test/submit/'+testId+"/"+emailId);
+  }
+  userValidittyService(emailId,testId){
+    return this.http.get(this.rootUrl+'/api/test/uservalidity/'+testId+"/"+emailId);
+  }
 }

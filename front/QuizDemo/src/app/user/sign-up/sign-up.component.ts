@@ -45,6 +45,8 @@ export class SignUpComponent implements OnInit {
             localStorage.setItem("userToken",data.accessToken);
             localStorage.setItem("userRole",data.role.name);
             localStorage.setItem("usernameOrEmail",data.role.name);
+            localStorage.setItem("isLoggedIn","true");
+            localStorage.setItem("emailId",this.user.Email.trim());
             let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
             this.router.navigate([returnUrl || '/home']);
         });

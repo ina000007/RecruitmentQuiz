@@ -54,7 +54,7 @@
         <!-- <li class="waves-effect" [class.disabled]="selectedPage==quesLst.length-1" (click)="show(1,ref)"><a><i class="material-icons">chevron_right</i></a></li> -->
 			</ul>
 			<div class="input-field col s12">
-				<button class="btn-large btn-submit" routerLink="/submitTest"  type="submit">submit Test</button>
+				<button class="btn-large btn-submit" (click)='submit()' routerLink="/submitTest"  type="submit">submit Test</button>
 			  </div>
 		</div>
 	</div>

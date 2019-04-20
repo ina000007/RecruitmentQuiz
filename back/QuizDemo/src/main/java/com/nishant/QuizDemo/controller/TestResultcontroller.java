@@ -51,7 +51,6 @@ public class TestResultcontroller {
 		String name="";
 		String marks="";
 		String emailId="";
-		System.out.println(userQuesAnsDetailRepository.userResultByTestId(testId));
 		List<Object[]> results = userQuesAnsDetailRepository.userResultByTestId(testId);
 		for (int i = 0; i < results.size(); i++) {
 			Object[] arr = results.get(i);

@@ -63,13 +63,16 @@ public class AuthController {
         String jwt = tokenProvider.generateToken(authentication);
         User user;
         Role role=null;
+        String emailId = "";
         Optional data = userRepository.findByUsernameOrEmail(loginRequest.getUsernameOrEmail(), loginRequest.getUsernameOrEmail());
         if(data.isPresent()) {
         	user = (User) data.get(); 
         	role = (Role) user.getRoles().toArray()[0];
+        	emailId = (String)user.getEmail();
         	System.out.println("Role role=> "+role);
+        	System.out.println(user);
         }
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt,role));
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt,role,emailId));
     }
 
     @PostMapping("/signup")
@@ -91,7 +94,7 @@ public class AuthController {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)  
+        Role userRole = roleRepository.findByName(RoleName.ROLE_ADMIN)  
                 .orElseThrow(() -> new AppException("User Role not set."));  //change ROLE_USER to ROLE_ADMIN to register user or admin 
 
         user.setRoles(Collections.singleton(userRole));

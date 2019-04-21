@@ -11,32 +11,34 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SignInComponent implements OnInit {
   isLoginError: boolean = false;
-   
+  
   constructor(private userService:UserService, private router:Router,private route: ActivatedRoute,
-  private appComponent:AppComponent) { 
-
-    localStorage.clear();
-
-  }
-
-  ngOnInit() {
-  }
-  onSubmit(usernameOrEmail,password){
-    usernameOrEmail = String(usernameOrEmail).trim();
-    password = String(password).trim();
-    this.appComponent.showLoadingIndicator=true;
-    this.userService.userAuthentication(usernameOrEmail,password).subscribe((data: any)=>{
-      this.appComponent.showLoadingIndicator=false;
+    private appComponent:AppComponent) { 
+      
+      localStorage.clear();
+      
+    }
+    
+    ngOnInit() {
+    }
+    onSubmit(usernameOrEmail,password){
+      usernameOrEmail = String(usernameOrEmail).trim();
+      password = String(password).trim();
+      this.appComponent.showLoadingIndicator=true;
+      this.userService.userAuthentication(usernameOrEmail,password).subscribe((data: any)=>{
+        console.log(JSON.stringify(data));
+        this.appComponent.showLoadingIndicator=false;
         localStorage.setItem("userToken",data.accessToken);
         localStorage.setItem("userRole",data.role.name);
         localStorage.setItem("isLoggedIn","true");
-        localStorage.setItem("emailId",usernameOrEmail);
+        localStorage.setItem("emailId",data.emailId);
         let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
         this.router.navigate([returnUrl || '/home']);
-    },
-  (err : HttpErrorResponse)=>{
-    this.appComponent.showLoadingIndicator=false;
-     this.isLoginError=true;
-  });
+      },
+      (err : HttpErrorResponse)=>{
+        this.appComponent.showLoadingIndicator=false;
+        this.isLoginError=true;
+      });
+    }
   }
-}
+  

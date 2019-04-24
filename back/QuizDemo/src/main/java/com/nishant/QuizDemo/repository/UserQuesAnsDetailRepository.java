@@ -27,9 +27,9 @@ public interface UserQuesAnsDetailRepository extends JpaRepository<UserQuesAnsDe
 //	 select email_id, (select count(ques_id) from user_ques_ans_detail where test_id=135 and is_correct = 1 group by email_id ) as marks from user_ques_ans_detail where is_correct=0 and 
 //	test_id=135 group by email_id;
 	
-//	SELECT email_id, sum(is_correct) 'count' from user_ques_ans_detail group by email_id
+//	SELECT email_id, sum(is_correct) 'count' from where test_id=3 user_ques_ans_detail group by email_id
 //	@Query(value="select  u.userQuesAnsId.emailId, (select count(u.userQuesAnsId.quesId) from UserQuesAnsDetail u where u.userQuesAnsId.testId=:testId and u.isCorrect = 1 group by u.userQuesAnsId.emailId ) from UserQuesAnsDetail u where u.userQuesAnsId.testId=:testId group by u.userQuesAnsId.emailId")
 	
-	@Query(value= " SELECT u.userQuesAnsId.emailId, sum(u.isCorrect) from  UserQuesAnsDetail u  group by u.userQuesAnsId.emailId ")
+	@Query(value= " SELECT u.userQuesAnsId.emailId, sum(u.isCorrect) from  UserQuesAnsDetail u where u.userQuesAnsId.testId = :testId group by u.userQuesAnsId.emailId ")
 	List<Object[]> userResultByTestId(@Param("testId") String testId);
 }

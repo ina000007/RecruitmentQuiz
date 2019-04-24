@@ -94,7 +94,7 @@ public class AuthController {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Role userRole = roleRepository.findByName(RoleName.ROLE_ADMIN)  
+        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)  
                 .orElseThrow(() -> new AppException("User Role not set."));  //change ROLE_USER to ROLE_ADMIN to register user or admin 
 
         user.setRoles(Collections.singleton(userRole));
